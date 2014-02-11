@@ -8,6 +8,20 @@ public class Course {
 	private String lecturerID;
 	private Collection<String> sessionsIDs;
 
+	public Course(String id, String name, String lecturerID,
+			Collection<String> sessionsIDs) {
+		this.id = id;
+		this.name = name;
+		this.lecturerID = lecturerID;
+		this.sessionsIDs = sessionsIDs;
+	}
+
+	public Course(String name, String lecturerID, Collection<String> sessionsIDs) {
+		this.name = name;
+		this.lecturerID = lecturerID;
+		this.sessionsIDs = sessionsIDs;
+	}
+
 	public String getId() {
 		return id;
 	}
