@@ -12,6 +12,6 @@ public interface IDatabase {
 
 	public boolean delete(String ID, Class<?> cl);
 	
-	public boolean update(Object newObject, String ID);
+	public boolean update(Object newObject, String ID, Class<?> cl);
 
 }
