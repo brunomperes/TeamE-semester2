@@ -3,13 +3,23 @@ package team.e.components.sysfunc.timetable;
 import java.util.Collection;
 import java.util.Date;
 
-public class TimetableSlot {
+public class TimetableSlot implements IIdentifiable {
 	private String id;
 	private Date beginDate;
 	private String location;
 	private Collection<String> studentIDs;
 	private String tutorID;
 
+	public TimetableSlot(String id, Date beginDate, String location, Collection<String> studentIDs, String tutorID){
+		this.id = id;
+		this.beginDate = (Date) beginDate.clone();
+		this.location = location;
+		for (String i : studentIDs) {
+			this.studentIDs.add(i);
+		}
+		this.tutorID = tutorID;
+	}
+	
 	public String getId() {
 		return id;
 	}

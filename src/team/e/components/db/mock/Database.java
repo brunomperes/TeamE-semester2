@@ -1,53 +1,81 @@
 package team.e.components.db.mock;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import team.e.components.db.IDatabase;
 import team.e.components.sysfunc.timetable.Course;
+import team.e.components.sysfunc.timetable.IIdentifiable;
 import team.e.components.sysfunc.timetable.Session;
 import team.e.components.sysfunc.timetable.TimetableSlot;
 
 public class Database implements IDatabase {
-
-	List<Course> allCourses = new ArrayList<Course>();
-	List<Session> allSession = new ArrayList<Session>();
-	List<TimetableSlot> allTimetableSlot = new ArrayList<TimetableSlot>();
-
+	
+	@SuppressWarnings("rawtypes")
+	HashMap<String, List> tableMap = new HashMap<String, List>();
+	
+	
 	@Override
-	public List<Object> getAll(Class<?> cl) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
+		return tableMap.get(cl.getName());
 	}
 
 	@Override
-	public Object get(String ID, Class<?> cl) {
-		// TODO Auto-generated method stub
+	public Object get(String ID, Class<? extends IIdentifiable> cl) {
+		List<IIdentifiable> allElements = getAll(cl);
+		for (IIdentifiable element: allElements){
+			if (element.getId().equals(ID))
+				return (element);
+		}
 		return null;
 	}
 
+	private void addTable(Class<? extends IIdentifiable> cl){
+		String className = cl.getName();
+		if (!tableMap.containsKey(className)){
+			tableMap.put(className, new ArrayList<>());
+		}
+	}
+	
 	@Override
-	public boolean add(Object o, Class<?> cl) {
-		cl.getName();
+	public boolean add(Object o, Class<? extends IIdentifiable> cl) {
+		addTable(cl);
+		tableMap.get(cl.getName()).add(o);
+		return false;
+	}
 
-		// TODO Auto-generated method stub
+
+	@Override
+	public boolean delete(String ID, Class<? extends IIdentifiable> cl) {
+		List<IIdentifiable> allElements = getAll(cl);
+		for (int i = 0; i < allElements.size(); i++){
+			if (allElements.get(i).getId().equals(ID)){
+				allElements.remove(i);
+				return true;
+				}
+			}
 		return false;
 	}
 
 	@Override
-	public boolean delete(String ID, Class<?> cl) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean update(Object newObject, String ID) {
-		// TODO Auto-generated method stub
+	public boolean update(Object newObject, String ID, Class<? extends IIdentifiable> cl) {
+		List<IIdentifiable> allElements = getAll(cl);
+		for (int i = 0; i < allElements.size(); i++){
+			if (allElements.get(i).getId().equals(ID)){
+				allElements.set(i, (IIdentifiable)newObject);
+				return true;
+				}
+			}
 		return false;
 	}
 	
 	private void populateDb() {
-		allCourses.add(new Course("PSD3", "1", new ArrayList<String>()));
+		add(new Course("PSD3", "1", new ArrayList<String>()), Course.class);
+		add(new Session("0001", "tut", new ArrayList<String>(),	1, 60, 11, true), Session.class);
+		add(new TimetableSlot("0001", new Date(15, 10, 2013), "Boyd Orr 720", new ArrayList<String>(), "1105053"), TimetableSlot.class);
 	}
 
 }

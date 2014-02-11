@@ -2,7 +2,7 @@ package team.e.components.sysfunc.timetable;
 
 import java.util.Collection;
 
-public class Course {
+public class Course implements IIdentifiable{
 	private String id;
 	private String name;
 	private String lecturerID;
