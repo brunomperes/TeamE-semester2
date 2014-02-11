@@ -107,6 +107,14 @@
 			/>
 		
 		</jar>
+		<jar update="no" destfile="sysfunc-timetable.jar" manifest="config/osgi/SYSFUNC-TIMETABLE.MF">
+					
+					<fileset 
+						dir="bin/"
+						includes="team/e/components/sysfunc/timetable/*.class"
+					/>
+				
+				</jar>
 
 	</target>
 	
