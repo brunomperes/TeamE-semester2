@@ -11,6 +11,19 @@ public class Session {
 	private int durationMinutes;
 	private int durationWeeks;
 	private boolean compulsory;
+	
+	//Needed for MyCampusStub. Won't be needed when we get this info from mycampus directly
+	public Session(String id, String name, Collection<String> timetableSlotIDs,
+			int frequency, int durationMinutes, int durationWeeks,
+			boolean compulsory) {
+		this.id = id;
+		this.name = name;
+		this.timetableSlotIDs = timetableSlotIDs;
+		this.frequency = frequency;
+		this.durationMinutes = durationMinutes;
+		this.durationWeeks = durationWeeks;
+		this.compulsory = compulsory;
+	}
 
 	public String getId() {
 		return id;
