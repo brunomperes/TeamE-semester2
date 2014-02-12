@@ -1,24 +1,21 @@
 package team.e.components.sysfunc.timetable;
 
-import java.util.Collection;
 
 public class Session implements IIdentifiable {
 
 	private String id;
 	private String name;
-	private Collection<String> timetableSlotIDs;
 	private int frequency;
 	private int durationMinutes;
 	private int durationWeeks;
 	private boolean compulsory;
 	
 	//Needed for MyCampusStub. Won't be needed when we get this info from mycampus directly
-	public Session(String id, String name, Collection<String> timetableSlotIDs,
+	public Session(String id, String name,
 			int frequency, int durationMinutes, int durationWeeks,
 			boolean compulsory) {
 		this.id = id;
 		this.name = name;
-		this.timetableSlotIDs = timetableSlotIDs;
 		this.frequency = frequency;
 		this.durationMinutes = durationMinutes;
 		this.durationWeeks = durationWeeks;
@@ -39,14 +36,6 @@ public class Session implements IIdentifiable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Collection<String> getTimetableSlotIDs() {
-		return timetableSlotIDs;
-	}
-
-	public void setTimetableSlotIDs(Collection<String> timetableSlotIDs) {
-		this.timetableSlotIDs = timetableSlotIDs;
 	}
 
 	public int getFrequency() {

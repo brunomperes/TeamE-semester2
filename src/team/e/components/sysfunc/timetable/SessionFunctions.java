@@ -2,7 +2,6 @@ package team.e.components.sysfunc.timetable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import team.e.components.db.IDatabase;
 
@@ -41,11 +40,42 @@ public class SessionFunctions {
 	}
 
 	public Collection<Session> getCompulsorySessionsForCourse(String courseID) {
-		return null;
+		
+		Collection<IIdentifiable> nonFilter = db.getAll(CourseHasSession.class);
+		Collection<Session> intermediate = new ArrayList<Session>();
+		Collection<Session> result = new ArrayList<Session>();
+		
+		for (IIdentifiable iIdentifiable : nonFilter) {
+			CourseHasSession courseSession = (CourseHasSession) iIdentifiable;
+			if(courseSession.getCourseId().equals(courseID)){
+				intermediate.add((Session) db.get(courseSession.getSessionId(), Session.class));
+			}
+		}
+		
+		for (Session session : intermediate) {
+			if (session.isCompulsory()){
+				result.add(session);
+			}
+		}
+		
+		
+		return result;
 	}
 
 	public Collection<Course> getAllCoursesForStudent(String studentID) {
-		return null;
+		
+		Collection<IIdentifiable> allStudentHasCourse = db.getAll(StudentHasCourse.class);
+		Collection<Course> result = new ArrayList<Course>();
+		
+		//Filter
+		for (IIdentifiable iIdentifiable : allStudentHasCourse) {
+			StudentHasCourse intermediate = (StudentHasCourse) iIdentifiable;
+			if(intermediate.getStudentId().equals(studentID)){
+				result.add((Course) db.get(intermediate.getCourseId(), Course.class));
+			}
+		}
+		
+		return result;
 	}
 
 	/**
@@ -55,14 +85,17 @@ public class SessionFunctions {
 	 */
 	public Collection<Session> getAllSessionsForStudent(String studentID) {
 		
-		Collection<StudentHasTimetableSlot> slotsStudentIsIn = selectStudentHasTimetableSlotByStudentId(studentID);;
-		Collection<SessionHasTimetableSlot> result = new ArrayList<SessionHasTimetableSlot>();
+		Collection<StudentHasTimetableSlot> slotsStudentIsIn = selectStudentHasTimetableSlotByStudentId(studentID);
+		Collection<Session> result = new ArrayList<Session>();
 		
 		for (StudentHasTimetableSlot studentHasTimetableSlot : slotsStudentIsIn) {
-			 result.addAll(selectSessionHasTimetableSlotByTimetable(studentHasTimetableSlot.getTimetableSlotId()));
+			Collection<SessionHasTimetableSlot> intermediate = selectSessionHasTimetableSlotByTimetable(studentHasTimetableSlot.getTimetableSlotId());
+			for (SessionHasTimetableSlot sessionHasTimetableSlot : intermediate) {
+				result.add((Session) db.get(sessionHasTimetableSlot.getSessionId(), Session.class));
+			}
 		}
 		
-		return null;
+		return result;
 	}
 	
 	/**

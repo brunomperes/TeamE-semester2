@@ -1,25 +1,21 @@
 package team.e.components.sysfunc.timetable;
 
-import java.util.Collection;
 import java.util.Date;
 
 public class TimetableSlot implements IIdentifiable {
 	private String id;
 	private Date beginDate;
 	private String location;
-	private Collection<String> studentIDs;
 	private String tutorID;
 
-	public TimetableSlot(String id, Date beginDate, String location, Collection<String> studentIDs, String tutorID){
+	public TimetableSlot(String id, Date beginDate, String location,
+			String tutorID) {
 		this.id = id;
 		this.beginDate = (Date) beginDate.clone();
 		this.location = location;
-		for (String i : studentIDs) {
-			this.studentIDs.add(i);
-		}
 		this.tutorID = tutorID;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -42,14 +38,6 @@ public class TimetableSlot implements IIdentifiable {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public Collection<String> getStudentIDs() {
-		return studentIDs;
-	}
-
-	public void setStudentIDs(Collection<String> studentIDs) {
-		this.studentIDs = studentIDs;
 	}
 
 	public String getTutorID() {

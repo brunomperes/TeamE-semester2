@@ -30,26 +30,23 @@ public class CourseFunctions {
 	
 	public Collection<Session> getAllSessions(String courseID) {
 		
-		Course course = (Course) db.get(courseID, Course.class);
-				
-		Collection<String> sessionsIDs = course.getSessionsIDs();
-		Collection<Session> courseSessions = new ArrayList<Session>();
+		Collection<IIdentifiable> courseSession = db.getAll(CourseHasSession.class);
+		Collection<Session> result = new ArrayList<Session>();
 		
-		for (String currentSessionID : sessionsIDs) {
-			Session s = (Session) db.get(currentSessionID, Session.class);
-			courseSessions.add(s);
+		for (IIdentifiable currentSessionID : courseSession) {
+			CourseHasSession intermediate = (CourseHasSession) currentSessionID;
+			Session s = (Session) db.get(intermediate.getSessionId(), Session.class);
+			result.add(s);
 		}
 		
-		return courseSessions;
+		return result;
 	}
 
 	public boolean addSessionToCourse(Session newSession, String courseID) {
-		Course course = (Course) db.get(courseID, Course.class);
-		Collection<String> sessionsID = course.getSessionsIDs();
-		
-		sessionsID.add(newSession.getId());
-		
-		boolean response = db.update(course, Course.class);
+		CourseHasSession object = new CourseHasSession();
+		object.setCourseId(courseID);
+		object.setSessionId(newSession.getId());
+		boolean response = db.add(object, CourseHasSession.class);
 		
 		return response;
 	}

@@ -63,7 +63,8 @@ public class Database implements IDatabase {
 	}
 
 	@Override
-	public boolean update(IIdentifiable newObject, Class<? extends IIdentifiable> cl) {
+	public boolean update(IIdentifiable newObject,
+			Class<? extends IIdentifiable> cl) {
 		String ID = newObject.getId();
 		List<IIdentifiable> allElements = getAll(cl);
 		for (int i = 0; i < allElements.size(); i++) {
@@ -76,11 +77,10 @@ public class Database implements IDatabase {
 	}
 
 	private void populateDb() {
-		add(new Course("PSD3", "1", new ArrayList<String>()), Course.class);
-		add(new Session("0001", "tut", new ArrayList<String>(), 1, 60, 11, true),
-				Session.class);
+		add(new Course("PSD3", "1"), Course.class);
+		add(new Session("0001", "tut", 1, 60, 11, true), Session.class);
 		add(new TimetableSlot("0001", new Date(15, 10, 2013), "Boyd Orr 720",
-				new ArrayList<String>(), "1105053"), TimetableSlot.class);
+				"1105053"), TimetableSlot.class);
 	}
 
 }

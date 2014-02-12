@@ -1,6 +1,6 @@
 package team.e.components.sysfunc.timetable;
 
-public class CourseHasSession {
+public class CourseHasSession implements IIdentifiable {
 	private String id;
 	private String courseId;
 	private String sessionId;
@@ -17,8 +17,8 @@ public class CourseHasSession {
 		return courseId;
 	}
 
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
+	public void setCourseId(String studentId) {
+		this.courseId = studentId;
 	}
 
 	public String getSessionId() {

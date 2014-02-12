@@ -1,7 +1,5 @@
 package team.e.components.sysfunc.timetable;
 
-import java.util.Collection;
-
 import team.e.components.db.IDatabase;
 
 public class TimetableSlotFunctions {
@@ -14,13 +12,13 @@ public class TimetableSlotFunctions {
 	
 	public boolean addStudentToSlot(String studentID, String slotID){
 
-		TimetableSlot slot = (TimetableSlot) db.get(slotID, TimetableSlot.class);
-
-		Collection<String> currentStudents = slot.getStudentIDs();
-		currentStudents.add(studentID);
-		slot.setStudentIDs(currentStudents);
+		StudentHasTimetableSlot studentSlot = new StudentHasTimetableSlot();
+		studentSlot.setStudentId(studentID);
+		studentSlot.setTimetableSlotId(slotID);
 		
-		return db.update(slot, TimetableSlot.class);
+		boolean response = db.add(studentSlot, StudentHasTimetableSlot.class);
+		
+		return response;
 	}
 
 	public boolean assignRoomToSlot(String newRoom, String slotID) {

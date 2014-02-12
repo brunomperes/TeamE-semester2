@@ -1,25 +1,20 @@
 package team.e.components.sysfunc.timetable;
 
-import java.util.Collection;
 
-public class Course implements IIdentifiable{
+public class Course implements IIdentifiable {
 	private String id;
 	private String name;
 	private String lecturerID;
-	private Collection<String> sessionsIDs;
 
-	public Course(String id, String name, String lecturerID,
-			Collection<String> sessionsIDs) {
+	public Course(String id, String name, String lecturerID) {
 		this.id = id;
 		this.name = name;
 		this.lecturerID = lecturerID;
-		this.sessionsIDs = sessionsIDs;
 	}
 
-	public Course(String name, String lecturerID, Collection<String> sessionsIDs) {
+	public Course(String name, String lecturerID) {
 		this.name = name;
 		this.lecturerID = lecturerID;
-		this.sessionsIDs = sessionsIDs;
 	}
 
 	public String getId() {
@@ -44,14 +39,6 @@ public class Course implements IIdentifiable{
 
 	public void setLecturerID(String lecturerID) {
 		this.lecturerID = lecturerID;
-	}
-
-	public Collection<String> getSessionsIDs() {
-		return sessionsIDs;
-	}
-
-	public void setSessionsIDs(Collection<String> sessionsIDs) {
-		this.sessionsIDs = sessionsIDs;
 	}
 
 }
