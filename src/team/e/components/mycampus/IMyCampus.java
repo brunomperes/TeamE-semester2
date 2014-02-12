@@ -9,6 +9,6 @@ import team.e.components.users.auth.IAuthenticator;
 public interface IMyCampus extends IAuthenticator {
 	
 	public Collection<Course> getCourseList();
-	public Collection<Session> getCourseSessions();
+	public Collection<Session> getCourseSessions(String courseID);
 	
 }
