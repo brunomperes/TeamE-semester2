@@ -13,7 +13,7 @@ public class FunctionRepository implements IFunctionRepository{
 		objects=new ArrayList<Object>();
 	}
 	
-	public void registerFunction(Class<?> regClass){
+	public void registerFunction(Object regClass){
 		objects.add(regClass);
 	}
 
