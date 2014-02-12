@@ -5,7 +5,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 import team.e.components.mycampus.IMyCampus;
-import team.e.components.users.auth.AuthResult;
 import team.e.components.users.auth.IAuthenticator;
 
 public class Activator implements BundleActivator{
