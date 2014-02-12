@@ -10,7 +10,7 @@ public interface IDatabase {
 
 	public Object get(String ID, Class<? extends IIdentifiable> cl);
 
-	boolean update(Object newObject, String ID,	Class<? extends IIdentifiable> cl);
+	boolean update(IIdentifiable newObject, Class<? extends IIdentifiable> cl);
 
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl);
 

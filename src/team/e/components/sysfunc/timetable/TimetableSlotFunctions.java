@@ -20,7 +20,7 @@ public class TimetableSlotFunctions {
 		currentStudents.add(studentID);
 		slot.setStudentIDs(currentStudents);
 		
-		return db.update(slot, slotID, TimetableSlot.class);
+		return db.update(slot, TimetableSlot.class);
 	}
 
 	public boolean assignRoomToSlot(String newRoom, String slotID) {
@@ -29,7 +29,7 @@ public class TimetableSlotFunctions {
 		
 		slot.setLocation(newRoom);
 		
-		return db.update(slot, slotID, TimetableSlot.class);
+		return db.update(slot, TimetableSlot.class);
 	}
 
 }
