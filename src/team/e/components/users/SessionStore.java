@@ -41,32 +41,29 @@ public class SessionStore {
 	
 	/** Get UserAccess object of the given userType */
 	private UserAccess getAccess(String userType){
-		Collection<UserAccess> accessObjects = getAccessObjects();
-		for (UserAccess access : accessObjects) {
-			if (access.getUserType() == userType) {
-				return access;
+		Collection<IAccessFactory> accessServices = getAccessServices();
+		for (IAccessFactory factory : accessServices) {
+			if (factory.getUserType() == userType) {
+				return factory.newInstance() ;
 			}
 		}
 		return null;
 	}
 	
-	/** Get all available UserAccess implementations */
-	private Collection<UserAccess> getAccessObjects() {
+	/** Get all available IAccessFactory implementations */
+	private Collection<IAccessFactory> getAccessServices() {
 		
-		/* TODO: If access services are instances of UserAccess, then there's only one kind of access per
-		 * application and not per UserSession. Also, it doesn't look like a service can be a class. */
-		
-		Collection<ServiceReference<Class<? extends UserAccess>>> refs;
-		Collection<Class<? extends UserAccess>> services = new ArrayList<Class<? extends UserAccess>>();
-		UserAccess service;
+		Collection<ServiceReference<IAccessFactory>> refs;
+		Collection<IAccessFactory> services = new ArrayList<IAccessFactory>();
+		IAccessFactory service;
 		
 		try {
-			refs = Activator.context.getServiceReferences(UserAccess.class, null);
+			refs = Activator.context.getServiceReferences(IAccessFactory.class, null);
 		} catch (InvalidSyntaxException e) {
-			return new ArrayList<UserAccess>();
+			return new ArrayList<IAccessFactory>();
 		}
 		
-		for (ServiceReference<UserAccess> ref : refs) {
+		for (ServiceReference<IAccessFactory> ref : refs) {
 			service = Activator.context.getService(ref);
 			if (service != null) {
 				services.add(service);
