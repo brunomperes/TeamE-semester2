@@ -1,7 +1,6 @@
 package team.e.components.administrator;
 
 import team.e.components.sysfunc.repository.IFunctionRepository;
-import team.e.components.sysfunc.timetable.SessionFunctions;
 import team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 import team.e.components.users.UserAccess;
 

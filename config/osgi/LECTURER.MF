@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lecturer Role
+Bundle-SymbolicName: team.e.components.lecturer
+Bundle-Version: 1.0.0
+Bundle-Vendor: Team-E
+Bundle-Localization: plugin
+Import-Package: org.osgi.framework;version="1.3.0", team.e.components.users, team.e.components.sysfunc.repository, team.e.components.sysfunc.timetable, team.e.components.sysfunc.mycampus
+Export-Package: team.e.components.lecturer
+  
