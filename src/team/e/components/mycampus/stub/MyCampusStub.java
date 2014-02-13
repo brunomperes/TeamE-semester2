@@ -2,53 +2,66 @@ package team.e.components.mycampus.stub;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import team.e.components.db.IDatabase;
 import team.e.components.mycampus.IMyCampus;
 import team.e.components.sysfunc.timetable.Course;
+import team.e.components.sysfunc.timetable.CourseFunctions;
+import team.e.components.sysfunc.timetable.CourseHasSession;
+import team.e.components.sysfunc.timetable.IIdentifiable;
 import team.e.components.sysfunc.timetable.Session;
 import team.e.components.users.auth.AuthResult;
-import team.e.components.users.auth.IAuthenticator;
+import team.e.components.sysfunc.repository.IFunctionRepository;
 
 public class MyCampusStub implements IMyCampus{
 	
 	private ArrayList<Course> courses;
 	private ArrayList<Session> sessions;
+	private CourseFunctions courseFunctions;
+	private IDatabase db;
 	
-	public MyCampusStub(){
-		//Course creation
-		ArrayList<String> psd3SessionIDs= new ArrayList<String>();
-		psd3SessionIDs.add("PSD3-1");
-		psd3SessionIDs.add("PSD3-2");
-		courses.add(new Course("CS1", "PSD3", "13TS", psd3SessionIDs));
-		ArrayList<String> ns3SessionIDs= new ArrayList<String>();
-		psd3SessionIDs.add("NS3-1");
-		courses.add(new Course("CS2", "NS3", "22TJ", ns3SessionIDs));
-		//Session creation
-		sessions.add(new Session("PSD3-1", "PSD3 Lab", new ArrayList<String>(), 1, 50, 12, true));
-		sessions.add(new Session("PSD3-2", "PSD3 Tutorial", new ArrayList<String>(), 2, 50, 10, false));
-		sessions.add(new Session("NSD3-1", "NS3 Lab", new ArrayList<String>(), 1, 50, 12, true));
+	public MyCampusStub(IDatabase db, IFunctionRepository funcRepo){
+		this.db=db;
+		courseFunctions=(CourseFunctions) funcRepo.getFunction(Course.class);
+		
+		courses.add(new Course("CS1", "PSD3", "13TS"));
+		courses.add(new Course("CS2", "NS3", "22TJ"));
+		db.add(courses, Course.class);
+		sessions.add(new Session("PSD3-1", "PSD3 Lab", 1, 50, 10, true));
+		sessions.add(new Session("PSD3-2", "PSD3 Tutorial", 2, 50, 10, false));
+		sessions.add(new Session("NSD3-1", "NS3 Lab", 1, 50, 12, true));
+		db.add(sessions, Session.class);
+		
+		CourseHasSession courseSession=new CourseHasSession();
+		ArrayList<CourseHasSession> courseHasSessionArray=new ArrayList<CourseHasSession>();
+		courseSession.setCourseId("CS1");
+		courseSession.setSessionId("PSD3-1");
+		courseSession.setId("1");
+		courseHasSessionArray.add(courseSession);
+		courseSession.setCourseId("CS1");
+		courseSession.setSessionId("PSD3-2");
+		courseSession.setId("2");
+		courseHasSessionArray.add(courseSession);
+		courseSession.setCourseId("CS2");
+		courseSession.setSessionId("NS3-1");
+		courseSession.setId("3");
+		courseHasSessionArray.add(courseSession);
+		db.add(courseHasSessionArray, CourseHasSession.class);
 	}
 	
 	public Collection<Course> getCourseList(){
-		return courses;
+		List<IIdentifiable> courseList=db.getAll(Course.class);
+		ArrayList<Course> courseArray=new ArrayList<Course>();
+		for(int i=0;i<courseList.size();i++){
+			courseArray.add((Course) courseList.get(i));
+		}
+		return courseArray;
 	}
 	
 	//Returns NULL if no such course is found with the supplied ID
 	public Collection<Session> getCourseSessions(String courseID){
-		ArrayList<Session> sessions=new ArrayList<Session>();
-		int courseIndex=courses.indexOf(courseID);
-		if (courseIndex==-1){
-			return null;
-		}
-		Course course=courses.get(courseIndex);
-		for(Session session:sessions){
-			for(String courseSessionID:course.getSessionsIDs()){
-				if(session.getId()==courseSessionID){
-					sessions.add(session);
-				}
-			}
-		}
-		return sessions;
+		return courseFunctions.getAllSessions(courseID);
 	}
 
 	@Override
