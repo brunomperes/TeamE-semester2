@@ -7,7 +7,7 @@ Currently our team members are: Adam Kurkiewicz, Arnas Gabrielius Šlepikas, Bru
 The repository of semester 1 can be found at https://github.com/picrin/TeamE
 
 ### Architecture
-[Component diagram and system architecture](https://drive.google.com/file/d/0BzKWxFvD1Kf2azdsSTEzLVQtS0k/edit?usp=sharing).
+[Component diagram and system architecture](https://github.com/brunomperes/TeamE-semester2/wiki/ComponentDiagram).
 
 ### Requirements
 The requirements are documented as [Github issues](https://github.com/brunomperes/TeamE-semester2/issues).
