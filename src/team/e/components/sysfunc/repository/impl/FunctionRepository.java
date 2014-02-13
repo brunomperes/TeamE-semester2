@@ -13,12 +13,17 @@ public class FunctionRepository implements IFunctionRepository{
 		objects=new ArrayList<Object>();
 	}
 	
-	public void registerFunction(Object regClass){
-		objects.add(regClass);
+	public void registerFunction(Object regObj){
+		objects.add(regObj);
 	}
 
 	public Object getFunction(Class<?> reqClass){
-		return objects.get(objects.indexOf(reqClass));
+		for (Object regObj : objects) {
+			if (reqClass.isInstance(regObj)) {
+				return regObj;
+			}
+		}
+		return null;
 	}
 	
 }
