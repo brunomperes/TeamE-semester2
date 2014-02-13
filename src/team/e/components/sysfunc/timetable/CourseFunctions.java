@@ -50,4 +50,9 @@ public class CourseFunctions {
 		
 		return response;
 	}
+	
+	public boolean addCourse(Course newCourse) {
+		boolean result = db.add(newCourse, Course.class);
+		return result;
+	}
 }
