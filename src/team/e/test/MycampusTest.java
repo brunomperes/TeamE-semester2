@@ -16,7 +16,7 @@ public class MycampusTest{
 
 	@Test
 	public void test1(){
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 }
 

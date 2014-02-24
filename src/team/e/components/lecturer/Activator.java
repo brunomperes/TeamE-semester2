@@ -5,14 +5,16 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 import team.e.components.users.IAccessFactory;
+import team.e.components.lecturer.LecturerAccess;
 
 public class Activator implements BundleActivator{
 	
-	private ServiceRegistration<IAccessFactory> registration;
+	private ServiceRegistration<IAccessFactory<LecturerAccess>> registration;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(BundleContext context) throws Exception {
-		registration=context.registerService(IAccessFactory.class, new LecturerAccessFactory(), null);
+		registration=context.registerService( (Class<IAccessFactory<LecturerAccess>>) Class.forName("team.e.components.users.IAccessFactory<team.e.components.lecturer.LecturerAccess>"), new LecturerAccessFactory(), null);
 	}
 
 	@Override

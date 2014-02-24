@@ -21,6 +21,7 @@ public class Database implements IDatabase {
 	@SuppressWarnings("rawtypes")
 	HashMap<String, List> tableMap = new HashMap<String, List>();
 
+	// TODO suppress this warning if everything's fine.
 	@Override
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
 		return tableMap.get(cl.getName());
@@ -44,6 +45,7 @@ public class Database implements IDatabase {
 	}
 
 	@Override
+	// TODO suppress this warning if everything's fine.
 	public boolean add(Object o, Class<? extends IIdentifiable> cl) {
 		addTable(cl);
 		tableMap.get(cl.getName()).add(o);
