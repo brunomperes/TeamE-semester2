@@ -5,7 +5,8 @@ import team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 import team.e.components.users.UserAccess;
 
 public class AdminAccess extends UserAccess {
-	boolean assignRoomToSlot(String roomID, String slotID) {
+	
+	public boolean assignRoomToSlot(String roomID, String slotID) {
 		IFunctionRepository funcRepo = getFuncRepo();
 		TimetableSlotFunctions tsFuncs = (TimetableSlotFunctions) funcRepo.getFunction(TimetableSlotFunctions.class);
 		

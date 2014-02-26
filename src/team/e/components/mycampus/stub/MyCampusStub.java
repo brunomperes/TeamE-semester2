@@ -57,15 +57,15 @@ public class MyCampusStub implements IMyCampus{
 	}
 	
 	public Collection<Course> getCourseList(){
-		List<IIdentifiable> courseList=db.getAll(Course.class);
-		ArrayList<Course> courseArray=new ArrayList<Course>();
-		//System.out.println(courseList.get(0));
-		for(int i=0;i<courseList.size();i++){
-			//System.out.println("nleeeh");
-			//.out.println(courseList.get(i).getClass());
-			courseArray.add((Course)(courseList.get(i)));
-		}
-		return courseArray;
+//		List<IIdentifiable> courseList=db.getAll(Course.class);
+//		ArrayList<Course> courseArray=new ArrayList<Course>();
+//		//System.out.println(courseList.get(0));
+//		for(int i=0;i<courseList.size();i++){
+//			//System.out.println("nleeeh");
+//			//.out.println(courseList.get(i).getClass());
+//			courseArray.add((Course)(courseList.get(i)));
+//		}
+		return courses;
 	}
 	
 	//Returns NULL if no such course is found with the supplied ID
