@@ -1,4 +1,4 @@
-package team.e.test;
+package team.e.test.unit;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;

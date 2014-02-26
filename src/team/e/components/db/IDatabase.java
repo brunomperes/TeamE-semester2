@@ -1,5 +1,6 @@
 package team.e.components.db;
 
+import java.util.Collection;
 import java.util.List;
 
 import team.e.components.sysfunc.timetable.IIdentifiable;
@@ -14,6 +15,8 @@ public interface IDatabase {
 
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl);
 
-	public boolean add(Object o, Class<? extends IIdentifiable> cl);
+	public boolean add(IIdentifiable o, Class<? extends IIdentifiable> cl);
+	
+	public <T extends Collection<? extends IIdentifiable>> boolean addAll(T c, Class<? extends IIdentifiable> cl);
 
 }

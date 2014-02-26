@@ -21,6 +21,7 @@ public class LecturerAccess extends UserAccess {
 	public Collection<Course> getMyCampusCourses() {
 		IFunctionRepository funcRepo = getFuncRepo();
 		MyCampusFunctions mcFuncs = (MyCampusFunctions) funcRepo.getFunction(MyCampusFunctions.class);
+		//System.out.println("sagdf: " + mcFuncs);
 		
 		return mcFuncs.getCourseList();
 	}

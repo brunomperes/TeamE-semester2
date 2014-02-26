@@ -1,4 +1,4 @@
-package team.e.test;
+package team.e.test.unit;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -12,14 +12,7 @@ public class LecturerAccessTest {
 	@Test
 	public void testEmptyLecturerAccess() {
 		LecturerAccess lecacc = new LecturerAccess();
-		System.out.println(lecacc.getMyCampusCourses());
-	}
-	
-	@Test
-	public void testAddSingleCourse(){
-		LecturerAccess lecacc = new LecturerAccess();
-		//lecacc.addSessionToCourse(session, courseID);
-		fail("not implementd");
+		lecacc.getMyCampusCourses();
 	}
 
 }
