@@ -2,6 +2,14 @@ package team.e.components.sysfunc.timetable;
 
 public class SessionHasTimetableSlot implements IIdentifiable {
 
+	public SessionHasTimetableSlot(String id, String sessionId,
+			String timetableSlotId) {
+		super();
+		this.id = id;
+		this.sessionId = sessionId;
+		this.timetableSlotId = timetableSlotId;
+	}
+
 	private String id;
 	private String sessionId;
 	private String timetableSlotId;

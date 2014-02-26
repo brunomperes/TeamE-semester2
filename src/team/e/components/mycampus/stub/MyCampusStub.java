@@ -70,7 +70,7 @@ public class MyCampusStub implements IMyCampus{
 	
 	//Returns NULL if no such course is found with the supplied ID
 	public Collection<Session> getCourseSessions(String courseID){
-		return courseFunctions.getAllSessions(courseID);
+		return courseFunctions.getAllSessions();
 	}
 
 	@Override

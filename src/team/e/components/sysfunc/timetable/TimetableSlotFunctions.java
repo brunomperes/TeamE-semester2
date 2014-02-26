@@ -49,7 +49,47 @@ public class TimetableSlotFunctions {
 			}
 		}
 		
-		return null;
+		return result;
+	}
+
+	public List<TimetableSlot> findTimeTableSlotForLecturer(String lecturerID) {
+
+		List<TimetableSlot> result = new ArrayList<>();
+		List<IIdentifiable> queryResult = (List<IIdentifiable>) db
+				.getAll(TimetableSlot.class);
+		List<TimetableSlot> intermediate = new ArrayList<TimetableSlot>();
+
+		for (IIdentifiable iIdentifiable : queryResult) {
+			intermediate.add((TimetableSlot) iIdentifiable);
+		}
+
+		for (TimetableSlot lecturerHasTimetableSlot : intermediate) {
+			if (lecturerHasTimetableSlot.getTutorID().equals(lecturerID)) {
+				result.add(lecturerHasTimetableSlot);
+			}
+		}
+
+		return result;
+	}
+
+	public List<TimetableSlot> findTimeTableSlotForLecturerAndSession(
+			String lecturerID, String sessionID) {
+		List<TimetableSlot> result = new ArrayList<>();
+		List<IIdentifiable> queryResult = (List<IIdentifiable>) db
+				.getAll(TimetableSlot.class);
+		List<TimetableSlot> intermediate = new ArrayList<TimetableSlot>();
+
+		for (IIdentifiable iIdentifiable : queryResult) {
+			intermediate.add((TimetableSlot) iIdentifiable);
+		}
+
+		for (TimetableSlot lecturerHasTimetableSlot : intermediate) {
+			if (lecturerHasTimetableSlot.getTutorID().equals(lecturerID) && lecturerHasTimetableSlot.getTutorID().equals(sessionID)) {
+				result.add(lecturerHasTimetableSlot);
+			}
+		}
+
+		return result;
 	}
 
 }

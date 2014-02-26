@@ -24,6 +24,8 @@ import team.e.components.sysfunc.timetable.Course;
 import team.e.components.sysfunc.timetable.CourseFunctions;
 import team.e.components.sysfunc.timetable.Session;
 import team.e.components.sysfunc.timetable.SessionFunctions;
+import team.e.components.sysfunc.timetable.SessionHasTimetableSlot;
+import team.e.components.sysfunc.timetable.StudentHasCourse;
 import team.e.components.sysfunc.timetable.TimetableSlot;
 import team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 
@@ -35,7 +37,9 @@ public class Functional1to7 {
 	private static LecturerAccess lecturerAccess = lecturerAccessFactory.newInstance();
 	private static AdminAccess adminAccess =  new AdminAccessFactory().newInstance();
 	private static StudentAccess studentAccess =  new StudentAccessFactory().newInstance();
-	private static Session aSession;
+	private static Session exampleSession;
+	private static Session exampleSession2;
+	private static Session exampleSession3;
 	private static MyCampusFunctions myCampusFunctions = new MyCampusFunctions(myCampus);
 	private static CourseFunctions courseFunctions = new CourseFunctions(mockDatabase);
 	private static SessionFunctions sessionFunctions = new SessionFunctions(mockDatabase);
@@ -59,7 +63,9 @@ public class Functional1to7 {
 		adminAccess.setUsername("root");
 		lecturerAccess.setUsername("Tim");
 
-		aSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
+		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
+		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true);
+		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false);
 	}
 
 	@Test
@@ -77,14 +83,14 @@ public class Functional1to7 {
 	public void functionalRequirement2() {
 		boolean success = false;
 		
-		lecturerAccess.addSessionToCourse(aSession, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
 		//Verifies there is a result on database for iterating
 		List<Session> courseSessions = (List<Session>) courseFunctions.getCourseSessions("PSD3");
 		assertTrue(courseSessions != null);
 		
 		for (Session sessionOfCourse : courseSessions) {
-			if (sessionOfCourse.getId().equals(aSession.getId()))
+			if (sessionOfCourse.getId().equals(exampleSession.getId()))
 				success = true;
 		}
 		assertTrue(success);
@@ -99,18 +105,18 @@ public class Functional1to7 {
 		int frequency = 2;
 
 		lecturerAccess.importMyCampusCourse("PSD3");
-		lecturerAccess.addSessionToCourse(aSession, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 
 		assertTrue(lecturerAccess.setSessionFrequency("PSD3-L1", frequency));
 		
-		success = sessionFunctions.getSession(aSession.getId()).getFrequency() == frequency;
+		success = sessionFunctions.getSession(exampleSession.getId()).getFrequency() == frequency;
 		
 		assertTrue(success);
 	}
 
 	@Test
 	public void functionalRequirement8() {
-		lecturerAccess.addSessionToCourse(aSession, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
 		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, ""), TimetableSlot.class);
 		
@@ -137,43 +143,40 @@ public class Functional1to7 {
 
 	@Test
 	public void functionalRequirement12() {
-		boolean success = false;
-		lecturerAccess.setFuncRepo(funcRepo);
-		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1,
-				50, 10, true), "PSD3");
-		// System.out.println(mockDatabase.getAll(Course.class));
-		// lecacc.importMyCampusCourse("PSD3");
-		for (Course course : lecturerAccess.getMyCampusCourses()) {
-			if (course.getName().equals("PSD3"))
-				success = true;
-		}
-		assertTrue(success);
-	}
-
-	@Test
-	public void functionalRequirement13() {
-		boolean success = false;
-		lecturerAccess.importMyCampusCourse("PSD3");
-		for (Course course : lecturerAccess.getMyCampusCourses()) {
-			if (course.getName().equals("PSD3"))
-				success = true;
-		}
-		assertTrue(success);
+		
+		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession2, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession3, "PSD3");
+		
+		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
+		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);	
+		studentAccess.bookTimetableSlot("SLOT1");
+		
+		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		assertTrue(compulsoryUnbookedSessionsAFTER.size() == compulsoryUnbookedSessionsBEFORE.size());
 	}
 	
 	@Test
 	public void functionalRequirement14() {
-		boolean success = false;
-		lecturerAccess.setFuncRepo(funcRepo);
-		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1,
-				50, 10, true), "PSD3");
-		// System.out.println(mockDatabase.getAll(Course.class));
-		// lecacc.importMyCampusCourse("PSD3");
-		for (Course course : lecturerAccess.getMyCampusCourses()) {
-			if (course.getName().equals("PSD3"))
-				success = true;
-		}
-		assertTrue(success);
+			
+		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+		
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
+		
+		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);
+		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT2", exampleSession.getId(), "SLOT2"), SessionHasTimetableSlot.class);
+		
+		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession(exampleSession.getId());
+		
+		assertTrue(queryResult != null);
+		assertTrue(queryResult.size() == 2);
 	}
 
 }
