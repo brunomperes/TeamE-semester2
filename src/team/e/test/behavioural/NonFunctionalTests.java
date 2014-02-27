@@ -3,6 +3,7 @@ package team.e.test.behavioural;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ import team.e.components.sysfunc.timetable.StudentHasCourse;
 import team.e.components.sysfunc.timetable.TimetableSlot;
 import team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 import team.e.components.users.auth.*;
+import team.e.components.users.UserAccess;
 
 public class NonFunctionalTests {
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
@@ -123,5 +125,9 @@ public class NonFunctionalTests {
 		assertEquals("Test supports 20 timetable slots per session", 20, count);
 	}
 
+	@Test
+	public void nonFunctionalPerformance4(){
+		ArrayList<UserAccess> userAccess = new ArrayList<UserAccess>();
+	}
 	
 }
