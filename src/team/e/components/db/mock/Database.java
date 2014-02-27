@@ -19,8 +19,8 @@ import team.e.components.sysfunc.timetable.TimetableSlot;
  */
 public class Database implements IDatabase {
 
-	@SuppressWarnings("rawtypes")
-	HashMap<String, List<IIdentifiable>> tableMap = new HashMap<>();
+
+	HashMap<String, List<IIdentifiable>> tableMap = new HashMap<String, List<IIdentifiable>>();
 
 	// TODO suppress this warning if everything's fine.
 	@Override

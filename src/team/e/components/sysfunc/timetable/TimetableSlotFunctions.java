@@ -35,7 +35,7 @@ public class TimetableSlotFunctions {
 	
 	public List<TimetableSlot> findTimeTableSlotForStudent(String studentID) {
 		
-		List<TimetableSlot> result = new ArrayList<>();
+		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
 		List<IIdentifiable> queryResult = (List<IIdentifiable>) db.getAll(TimetableSlot.class);
 		List<StudentHasTimetableSlot> intermediate = new ArrayList<StudentHasTimetableSlot>();
 		
@@ -54,7 +54,7 @@ public class TimetableSlotFunctions {
 
 	public List<TimetableSlot> findTimeTableSlotForLecturer(String lecturerID) {
 
-		List<TimetableSlot> result = new ArrayList<>();
+		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
 		List<IIdentifiable> queryResult = (List<IIdentifiable>) db
 				.getAll(TimetableSlot.class);
 		List<TimetableSlot> intermediate = new ArrayList<TimetableSlot>();
@@ -74,7 +74,7 @@ public class TimetableSlotFunctions {
 
 	public List<TimetableSlot> findTimeTableSlotForLecturerAndSession(
 			String lecturerID, String sessionID) {
-		List<TimetableSlot> result = new ArrayList<>();
+		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
 		List<IIdentifiable> queryResult = (List<IIdentifiable>) db
 				.getAll(TimetableSlot.class);
 		List<TimetableSlot> intermediate = new ArrayList<TimetableSlot>();
