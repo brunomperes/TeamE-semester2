@@ -228,6 +228,9 @@
 			<test name="team.e.test.behavioural.Functional1to7" />
 			<test name="team.e.test.behavioural.NonFunctionalTests" />
 			<test name="team.e.test.unit.LecturerAccessTest" />
+			<test name="team.e.test.unit.TestCourseFunctions" />
+			<test name="team.e.test.unit.TestSessionFunctions" />
+			<test name="team.e.test.unit.TestTimetableSlotFunctions" />
 			<!--test name="team.e.test.unit. /-->
 		</junit>
 	</target>
