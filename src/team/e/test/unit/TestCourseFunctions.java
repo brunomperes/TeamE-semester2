@@ -7,7 +7,10 @@ import org.junit.Assert;
 import team.e.components.sysfunc.timetable.Session;
 
 public class TestCourseFunctions
-{/*
+{/* 
+
+    Again, these tests become feasible once we create new instances in the database
+
 	@Test
 	public void getExistingSessionTest()
 	{

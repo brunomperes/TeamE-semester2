@@ -122,12 +122,18 @@ public class NonFunctionalTests {
 				count++;
 			}
 		}
-		assertEquals("Test supports 20 timetable slots per session", 20, count);
+		assertEquals("System supports 20 timetable slots per session", 20, count);
 	}
 
 	@Test
 	public void nonFunctionalPerformance4(){
 		ArrayList<UserAccess> userAccess = new ArrayList<UserAccess>();
+		userAccess.add(adminAccess);
+		for(int i=1; i<=10; i++)
+			userAccess.add(lecturerAccessFactory.newInstance());
+		for(int i=1; i<=100; i++)
+			userAccess.add(studentAccessFactory.newInstance());
+		assertEquals("System supports 100 concurrent users", 111, userAccess.size());
 	}
 	
 }
