@@ -1,6 +1,7 @@
 package team.e.components.db.mock;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,10 @@ import team.e.components.sysfunc.timetable.TimetableSlot;
  */
 public class Database implements IDatabase {
 
-	@SuppressWarnings("rawtypes")
-	HashMap<String, List> tableMap = new HashMap<String, List>();
 
+	HashMap<String, List<IIdentifiable>> tableMap = new HashMap<String, List<IIdentifiable>>();
+
+	// TODO suppress this warning if everything's fine.
 	@Override
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
 		return tableMap.get(cl.getName());
@@ -39,15 +41,23 @@ public class Database implements IDatabase {
 	private void addTable(Class<? extends IIdentifiable> cl) {
 		String className = cl.getName();
 		if (!tableMap.containsKey(className)) {
-			tableMap.put(className, new ArrayList<>());
+			tableMap.put(className, new ArrayList<IIdentifiable>());
 		}
 	}
 
 	@Override
-	public boolean add(Object o, Class<? extends IIdentifiable> cl) {
+	// TODO suppress this warning if everything's fine.
+	public boolean add(IIdentifiable o, Class<? extends IIdentifiable> cl) {
 		addTable(cl);
 		tableMap.get(cl.getName()).add(o);
-		return false;
+		return true;
+	}
+	
+	public <T extends Collection<? extends IIdentifiable>> boolean addAll(T c, Class<? extends IIdentifiable> cl) {
+		for (IIdentifiable i: c){
+			add(i, cl);
+		}
+		return true;
 	}
 
 	@Override

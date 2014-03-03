@@ -1,12 +1,11 @@
 package team.e.components.student;
 
 import team.e.components.users.IAccessFactory;
-import team.e.components.users.UserAccess;
 
-public class StudentAccessFactory implements IAccessFactory {
+public class StudentAccessFactory implements IAccessFactory <StudentAccess> {
 
 	@Override
-	public UserAccess newInstance() {
+	public StudentAccess newInstance() {
 		return new StudentAccess();
 	}
 

@@ -12,12 +12,13 @@ import team.e.components.sysfunc.timetable.CourseHasSession;
 import team.e.components.sysfunc.timetable.IIdentifiable;
 import team.e.components.sysfunc.timetable.Session;
 import team.e.components.users.auth.AuthResult;
+import team.e.components.sysfunc.mycampus.MyCampusFunctions;
 import team.e.components.sysfunc.repository.IFunctionRepository;
 
 public class MyCampusStub implements IMyCampus{
 	
-	private ArrayList<Course> courses;
-	private ArrayList<Session> sessions;
+	private ArrayList<Course> courses = new ArrayList<Course>();
+	private ArrayList<Session> sessions  = new ArrayList<Session>();
 	private CourseFunctions courseFunctions;
 	private IDatabase db;
 	
@@ -27,11 +28,13 @@ public class MyCampusStub implements IMyCampus{
 		
 		courses.add(new Course("CS1", "PSD3", "13TS"));
 		courses.add(new Course("CS2", "NS3", "22TJ"));
-		db.add(courses, Course.class);
+		//TODO these side effects should be removed.
+		db.addAll(courses, Course.class);
 		sessions.add(new Session("PSD3-1", "PSD3 Lab", 1, 50, 10, true));
 		sessions.add(new Session("PSD3-2", "PSD3 Tutorial", 2, 50, 10, false));
 		sessions.add(new Session("NSD3-1", "NS3 Lab", 1, 50, 12, true));
-		db.add(sessions, Session.class);
+		//TODO these side effects should be removed.
+		db.addAll(sessions, Session.class);
 		
 		CourseHasSession courseSession=new CourseHasSession();
 		ArrayList<CourseHasSession> courseHasSessionArray=new ArrayList<CourseHasSession>();
@@ -47,21 +50,27 @@ public class MyCampusStub implements IMyCampus{
 		courseSession.setSessionId("NS3-1");
 		courseSession.setId("3");
 		courseHasSessionArray.add(courseSession);
-		db.add(courseHasSessionArray, CourseHasSession.class);
+		//TODO these side effects should be removed.
+		db.addAll(courseHasSessionArray, CourseHasSession.class);
+		MyCampusFunctions funkyObject = new MyCampusFunctions(this);
+		funcRepo.registerFunction(funkyObject);
 	}
 	
 	public Collection<Course> getCourseList(){
-		List<IIdentifiable> courseList=db.getAll(Course.class);
-		ArrayList<Course> courseArray=new ArrayList<Course>();
-		for(int i=0;i<courseList.size();i++){
-			courseArray.add((Course) courseList.get(i));
-		}
-		return courseArray;
+//		List<IIdentifiable> courseList=db.getAll(Course.class);
+//		ArrayList<Course> courseArray=new ArrayList<Course>();
+//		//System.out.println(courseList.get(0));
+//		for(int i=0;i<courseList.size();i++){
+//			//System.out.println("nleeeh");
+//			//.out.println(courseList.get(i).getClass());
+//			courseArray.add((Course)(courseList.get(i)));
+//		}
+		return courses;
 	}
 	
 	//Returns NULL if no such course is found with the supplied ID
 	public Collection<Session> getCourseSessions(String courseID){
-		return courseFunctions.getAllSessions(courseID);
+		return courseFunctions.getAllSessions();
 	}
 
 	@Override

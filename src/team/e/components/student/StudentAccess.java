@@ -18,7 +18,7 @@ public class StudentAccess extends UserAccess {
 	
 	public Collection<Session> getCompulsoryUnbookedSessions() {
 		IFunctionRepository funcRepo = getFuncRepo();
-		SessionFunctions sesFuncs = (SessionFunctions) funcRepo.getFunction(TimetableSlotFunctions.class);
+		SessionFunctions sesFuncs = (SessionFunctions) funcRepo.getFunction(SessionFunctions.class);
 		
 		return sesFuncs.getCompulsoryUnbookedSessions(getUsername());
 	}

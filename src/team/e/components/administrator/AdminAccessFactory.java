@@ -1,12 +1,11 @@
 package team.e.components.administrator;
 
 import team.e.components.users.IAccessFactory;
-import team.e.components.users.UserAccess;
 
-public class AdminAccessFactory implements IAccessFactory {
+public class AdminAccessFactory implements IAccessFactory<AdminAccess> {
 
 	@Override
-	public UserAccess newInstance() {
+	public AdminAccess newInstance() {
 		return new AdminAccess();
 	}
 

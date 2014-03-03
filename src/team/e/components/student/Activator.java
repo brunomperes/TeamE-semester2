@@ -8,11 +8,13 @@ import team.e.components.users.IAccessFactory;
 
 public class Activator implements BundleActivator{
 	
-	private ServiceRegistration<IAccessFactory> registration;
+	private ServiceRegistration<IAccessFactory<StudentAccess>> registration;
 	
 	@Override
+	@SuppressWarnings("unchecked")
+
 	public void start(BundleContext context) throws Exception {
-		registration=context.registerService(IAccessFactory.class, new StudentAccessFactory(), null);
+		 registration=context.registerService((Class<IAccessFactory<StudentAccess>>) Class.forName("team.e.components.users.IAccessFactory"), new StudentAccessFactory(), null);
 	}
 
 	@Override

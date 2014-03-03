@@ -5,6 +5,13 @@ public class StudentHasCourse implements IIdentifiable {
 	private String courseId;
 	private String studentId;
 
+	public StudentHasCourse(String id, String courseId, String studentId) {
+		super();
+		this.id = id;
+		this.courseId = courseId;
+		this.studentId = studentId;
+	}
+
 	public String getId() {
 		return id;
 	}

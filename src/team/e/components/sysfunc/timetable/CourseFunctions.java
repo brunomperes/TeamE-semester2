@@ -13,12 +13,20 @@ public class CourseFunctions {
 		this.db = db;
 	}
 
-	public Collection<Session> getSessions(String courseID) {
-		Collection<Session> sessions;
+	public Collection<Session> getCourseSessions(String courseID) {
+		Collection<IIdentifiable> courseSession = db.getAll(CourseHasSession.class);
+		Collection<Session> result = new ArrayList<Session>();
 		
-		sessions = getAllSessions(courseID);
-
-		return sessions;
+		for (IIdentifiable currentSessionID : courseSession) {
+			CourseHasSession intermediate = (CourseHasSession) currentSessionID;
+			Session s = (Session) db.get(intermediate.getSessionId(), Session.class);
+			// Checks if it returned something
+			if (s != null){
+				result.add(s);
+			}
+		}
+		
+		return result;
 	}
 
 	public boolean addSession(Session newSession, String courseID) {
@@ -28,16 +36,19 @@ public class CourseFunctions {
 		return false;
 	}
 	
-	public Collection<Session> getAllSessions(String courseID) {
+	public Collection<Session> getAllSessions() {
 		
-		Collection<IIdentifiable> courseSession = db.getAll(CourseHasSession.class);
+		Collection<IIdentifiable> courseSession = db.getAll(Course.class);
 		Collection<Session> result = new ArrayList<Session>();
 		
-		for (IIdentifiable currentSessionID : courseSession) {
-			CourseHasSession intermediate = (CourseHasSession) currentSessionID;
-			Session s = (Session) db.get(intermediate.getSessionId(), Session.class);
-			result.add(s);
+		for (IIdentifiable currentSession : courseSession) {
+			Session s = (Session) currentSession;
+			// Checks if it returned something
+			if (s != null){
+				result.add(s);
+			}
 		}
+		
 		
 		return result;
 	}
