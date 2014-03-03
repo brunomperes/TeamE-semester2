@@ -21,7 +21,7 @@ public class Activator implements BundleActivator{
 	public void start(BundleContext context) throws Exception {
 		IFunctionRepository funcRepo=context.getService(context.getServiceReference(FunctionRepository.class));
 		IDatabase db=context.getService(context.getServiceReference(IDatabase.class));
-		myCStub=new MyCampusStub(db,funcRepo);
+		myCStub=new MyCampusStub(funcRepo);
 		myCampusStubRegistion=context.registerService(IMyCampus.class, myCStub, null);
 		
 		authResultRegistration=context.registerService(IAuthenticator.class, myCStub, null);

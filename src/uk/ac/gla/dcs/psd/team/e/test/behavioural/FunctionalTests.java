@@ -33,7 +33,7 @@ public class FunctionalTests {
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
 	private static IDatabase mockDatabase = new Database();
 	private static FunctionRepository funcRepo = new FunctionRepository();
-	private static IMyCampus myCampus = new MyCampusStub(mockDatabase, funcRepo);
+	private static IMyCampus myCampus = new MyCampusStub(funcRepo);
 	private static LecturerAccess lecturerAccess = lecturerAccessFactory.newInstance();
 	private static AdminAccess adminAccess =  new AdminAccessFactory().newInstance();
 	private static StudentAccess studentAccess =  new StudentAccessFactory().newInstance();
