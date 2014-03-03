@@ -29,7 +29,7 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 
-public class Functional1to7 {
+public class FunctionalTests {
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
 	private static IDatabase mockDatabase = new Database();
 	private static FunctionRepository funcRepo = new FunctionRepository();
@@ -44,9 +44,6 @@ public class Functional1to7 {
 	private static CourseFunctions courseFunctions = new CourseFunctions(mockDatabase);
 	private static SessionFunctions sessionFunctions = new SessionFunctions(mockDatabase);
 	private static TimetableSlotFunctions timetableSlotFunctions = new TimetableSlotFunctions(mockDatabase);
-
-	// Test access to an empty list of courses. Test case seems to fail due to a
-	// null pointer exception.
 
 	@BeforeClass
 	public static void setup() {

@@ -11,7 +11,7 @@ import uk.ac.gla.dcs.psd.team.e.components.mycampus.IMyCampus;
 import uk.ac.gla.dcs.psd.team.e.components.mycampus.stub.MyCampusStub;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
 
-public class LecturerAccessTest {
+public class TestLecturerAccess {
 	
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
 	private static IDatabase mockDatabase = new Database();

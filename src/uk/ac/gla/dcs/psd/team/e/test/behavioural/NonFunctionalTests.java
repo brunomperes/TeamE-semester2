@@ -43,16 +43,10 @@ public class NonFunctionalTests {
 	private static LecturerAccess lecturerAccess = lecturerAccessFactory.newInstance();
 	private static AdminAccess adminAccess =  new AdminAccessFactory().newInstance();
 	private static StudentAccess studentAccess =  new StudentAccessFactory().newInstance();
-	private static Session exampleSession;
-	private static Session exampleSession2;
-	private static Session exampleSession3;
 	private static MyCampusFunctions myCampusFunctions = new MyCampusFunctions(myCampus);
 	private static CourseFunctions courseFunctions = new CourseFunctions(mockDatabase);
 	private static SessionFunctions sessionFunctions = new SessionFunctions(mockDatabase);
 	private static TimetableSlotFunctions timetableSlotFunctions = new TimetableSlotFunctions(mockDatabase);
-
-	// Test access to an empty list of courses. Test case seems to fail due to a
-	// null pointer exception.
 
 	@BeforeClass
 	public static void setup() {
@@ -67,12 +61,7 @@ public class NonFunctionalTests {
 		
 		studentAccess.setUsername("Adam");
 		adminAccess.setUsername("root");
-		lecturerAccess.setUsername("Tim");
-
-		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
-		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true);
-		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false);
-		
+		lecturerAccess.setUsername("Tim");		
 	}
 
 	@Test

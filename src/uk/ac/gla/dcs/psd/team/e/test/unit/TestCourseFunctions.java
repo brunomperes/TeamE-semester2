@@ -1,10 +1,4 @@
 package uk.ac.gla.dcs.psd.team.e.test.unit;
-import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
-import org.junit.Assert;
-
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
 
 public class TestCourseFunctions
 {/* 
