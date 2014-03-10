@@ -1,12 +1,18 @@
 package uk.ac.gla.dcs.psd.team.e.test.behavioural;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.launch.Framework;
 
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccess;
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccessFactory;
@@ -28,6 +34,8 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionHasTimetable
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
+import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
+import uk.ac.gla.dcs.psd.team.e.test.steps.BundleBuilder;
 
 public class FunctionalTests {
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
@@ -44,9 +52,51 @@ public class FunctionalTests {
 	private static CourseFunctions courseFunctions = new CourseFunctions(mockDatabase);
 	private static SessionFunctions sessionFunctions = new SessionFunctions(mockDatabase);
 	private static TimetableSlotFunctions timetableSlotFunctions = new TimetableSlotFunctions(mockDatabase);
+	
+	private static BundleContext bundleContext;
+	private Framework framework;
+
+	public static Bundle installAndStart(String bundleFile) throws Exception{
+		
+		Bundle installedBundle = 
+			bundleContext.installBundle(
+					bundleFile);
+		
+		installedBundle.start();
+		
+		return installedBundle;
+				
+	}
+
+	private void recursiveDelete(File file){
+		if (!file.exists()) return;
+		if (file.isDirectory()){
+			for (File subFile :file.listFiles())
+				recursiveDelete(subFile);
+		}
+		file.delete();
+	}
 
 	@BeforeClass
-	public static void setup() {
+	public static void setup() throws Exception {
+		
+		//Loads all bundles
+		BundleBuilder bundleBuilder = new BundleBuilder();
+		
+		bundleContext = bundleBuilder.buildContext();
+		
+		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
+		
+		ServiceReference<AdminAccess> adminAccessReference = bundleContext
+				.getServiceReference(AdminAccess.class);
+
+//	ServiceReference<TemperatureReport> 
+//		temperatureReportReference = 
+//			bundleContext.getServiceReference(
+//				TemperatureReport.class);
+	
+		AdminAccess adminAccess2 = bundleContext.getService(adminAccessReference);
+		
 		funcRepo.registerFunction(myCampusFunctions);
 		funcRepo.registerFunction(courseFunctions);
 		funcRepo.registerFunction(sessionFunctions);
