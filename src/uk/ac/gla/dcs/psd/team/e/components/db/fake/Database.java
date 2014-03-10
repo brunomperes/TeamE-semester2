@@ -1,4 +1,4 @@
-package uk.ac.gla.dcs.psd.team.e.components.db.mock;
+package uk.ac.gla.dcs.psd.team.e.components.db.fake;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +16,7 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
  * The current implementation of the database, does not check for duplicated IDs
  * when adding to a list.
  * 
+ * It is a fake package as it does not implement a real database, but an in-memory simulation. 
  */
 public class Database implements IDatabase {
 

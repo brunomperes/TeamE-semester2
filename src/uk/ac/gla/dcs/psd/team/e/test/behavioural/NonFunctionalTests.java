@@ -14,7 +14,7 @@ import org.junit.Test;
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccess;
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
-import uk.ac.gla.dcs.psd.team.e.components.db.mock.Database;
+import uk.ac.gla.dcs.psd.team.e.components.db.fake.Database;
 import uk.ac.gla.dcs.psd.team.e.components.lecturer.LecturerAccess;
 import uk.ac.gla.dcs.psd.team.e.components.lecturer.LecturerAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.components.mycampus.IMyCampus;
