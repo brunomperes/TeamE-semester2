@@ -34,6 +34,7 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionHasTimetable
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
+import uk.ac.gla.dcs.psd.team.e.components.users.IAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
 import uk.ac.gla.dcs.psd.team.e.test.steps.BundleBuilder;
 
@@ -85,17 +86,24 @@ public class FunctionalTests {
 		
 		bundleContext = bundleBuilder.buildContext();
 		
+		installAndStart(BundleBuilder.DB_BUNDLE);
+		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
+		installAndStart(BundleBuilder.LECTURER_BUNDLE);
+		installAndStart(BundleBuilder.MYCAMPUS_BUNDLE);
+		installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
+		installAndStart(BundleBuilder.STUDENT_BUNDLE);
+		installAndStart(BundleBuilder.USER_BUNDLE);
 		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
 		
-		ServiceReference<AdminAccess> adminAccessReference = bundleContext
-				.getServiceReference(AdminAccess.class);
+		ServiceReference<MyCampusFunctions> myCampusReference = bundleContext
+				.getServiceReference(MyCampusFunctions.class);
 
 //	ServiceReference<TemperatureReport> 
 //		temperatureReportReference = 
 //			bundleContext.getServiceReference(
 //				TemperatureReport.class);
 	
-		AdminAccess adminAccess2 = bundleContext.getService(adminAccessReference);
+		MyCampusFunctions adminAccess2 = bundleContext.getService(myCampusReference);
 		
 		funcRepo.registerFunction(myCampusFunctions);
 		funcRepo.registerFunction(courseFunctions);

@@ -23,17 +23,17 @@ public class BundleBuilder {
 	final static private Integer EXPECTED_NUMBER_OF_BUNDLES = 7;
 	
 	final static public String ADMINISTRATOR_BUNDLE = "file:administrator.jar";
-	final static public String DB_FAKE_BUNDLE = "file:db-mock.jar";
+//	final static public String DB_FAKE_BUNDLE = "file:db-mock.jar"; // Private package, has no Export-Package config
 	final static public String DB_BUNDLE = "file:db.jar";
 	final static public String LECTURER_BUNDLE = "file:lecturer.jar";
 	final static public String MYCAMPUS_STUB_BUNDLE = "file:mycampus-stub.jar";
 	final static public String MYCAMPUS_BUNDLE = "file:mycampus.jar";
 	final static public String STUDENT_BUNDLE = "file:student.jar";
-	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:mycampus-bundle.jar";
-	final static public String SYSFUNC_REPOSITORY_IMPL_BUNDLE = "file:sysfunc-repository-impl.jar";
-	final static public String SYSFUNC_REPOSITORY_BUNDLE = "file:sysfunc-bundle.jar";
-	final static public String SYSFUNC_TIMETABLE_BUNDLE = "file:sysfunc-timetable.jar";
-	
+//	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:mycampus-bundle.jar"; // Private package, has no Export-Package config
+//	final static public String SYSFUNC_REPOSITORY_IMPL_BUNDLE = "file:sysfunc-repository-impl.jar"; // Private package, has no Export-Package config
+	final static public String SYSFUNC_REPOSITORY_BUNDLE = "file:sysfunc-repository.jar"; 
+	//final static public String SYSFUNC_TIMETABLE_BUNDLE = "file:sysfunc-timetable.jar"; // Private package, has no Export-Package config
+	final static public String USER_BUNDLE = "file:users.jar";
 	
 	private Bundle repositoryImpl;
 	private Bundle alarmImpl;
@@ -58,7 +58,7 @@ public class BundleBuilder {
 		
 		// Clean up any resources left behind by failed tests
 		this.recursiveDelete(new File("felix-cache"));
-		this.recursiveDelete(new File("data/sensordb"));
+//		this.recursiveDelete(new File("data/sensordb"));
 		
 		
 		expectedSensorID = "Temp02";
