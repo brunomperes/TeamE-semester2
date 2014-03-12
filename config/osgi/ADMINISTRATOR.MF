@@ -1,9 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Administrator Role
-Bundle-SymbolicName: team.e.components.administrator
+Bundle-SymbolicName: uk.ac.gla.dcs.psd.team.e.components.administrator
 Bundle-Version: 1.0.0
+Bundle-Activator: uk.ac.gla.dcs.psd.team.e.components.administrator.Activator
 Bundle-Vendor: Team-E
 Bundle-Localization: plugin
-Import-Package: org.osgi.framework;version="1.3.0", team.e.components.users, team.e.components.sysfunc.repository, team.e.components.sysfunc.timetable
-Export-Package: team.e.components.administrator
+Import-Package: org.osgi.framework;version="1.3.0", 
+  uk.ac.gla.dcs.psd.team.e.components.users, 
+  uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository, 
+  uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable
+Export-Package: uk.ac.gla.dcs.psd.team.e.components.administrator

@@ -34,6 +34,7 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionHasTimetable
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
+import uk.ac.gla.dcs.psd.team.e.components.users.IAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
 import uk.ac.gla.dcs.psd.team.e.test.steps.BundleBuilder;
 
@@ -54,9 +55,51 @@ public class FunctionalTests {
 	private static TimetableSlotFunctions timetableSlotFunctions = new TimetableSlotFunctions(mockDatabase);
 	
 	private static BundleContext bundleContext;
-	private Framework framework;
+	private static Framework framework;
+	
+public static BundleContext buildContext() throws Exception {
+		
+		// Clean up any resources left behind by failed tests
+		FunctionalTests.recursiveDelete(new File("felix-cache"));
+//		this.recursiveDelete(new File("data/sensordb"));
+		
+		
+//		expectedSensorID = "Temp02";
+		
+		String extraPackages =
+				"uk.ac.gla.dcs.psd.team.e.components.db,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.administrator,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.lecturer,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.mycampus,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.student,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus,"
+				+ "uk.ac.gla.dcs.psd.team.e.components.users";
+		
+		framework = 
+			ConfiguredFrameworkFactory.createFelixFramework(
+				extraPackages);
 
-	public static Bundle installAndStart(String bundleFile) throws Exception{
+		bundleContext = framework.getBundleContext();
+		
+		//...
+		
+		Integer actualNumberOfBundles = 
+			bundleContext.getBundles().length;
+		
+		String message = 
+			"If cleanly initialised, the framework should "
+			+ "only contain  " + 11 + " bundles.";
+		
+//		assertEquals(
+//			message,
+//			(Integer) 11,
+//			actualNumberOfBundles);
+		
+		return bundleContext;
+		
+	}
+
+	public static void installAndStart(String bundleFile) throws Exception{
 		
 		Bundle installedBundle = 
 			bundleContext.installBundle(
@@ -64,11 +107,11 @@ public class FunctionalTests {
 		
 		installedBundle.start();
 		
-		return installedBundle;
+//		return installedBundle;
 				
 	}
 
-	private void recursiveDelete(File file){
+	private static void recursiveDelete(File file){
 		if (!file.exists()) return;
 		if (file.isDirectory()){
 			for (File subFile :file.listFiles())
@@ -81,21 +124,32 @@ public class FunctionalTests {
 	public static void setup() throws Exception {
 		
 		//Loads all bundles
-		BundleBuilder bundleBuilder = new BundleBuilder();
+//		BundleBuilder bundleBuilder = new BundleBuilder();
 		
-		bundleContext = bundleBuilder.buildContext();
+		bundleContext = buildContext();
 		
+		//installAndStart(BundleBuilder.DB_BUNDLE);
+		installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
+		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
+		installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
 		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
+		installAndStart(BundleBuilder.LECTURER_BUNDLE);	
+		installAndStart(BundleBuilder.MYCAMPUS_BUNDLE);
+		installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
+		installAndStart(BundleBuilder.SYSFUNC_MYCAMPUS_BUNDLE);
+		installAndStart(BundleBuilder.STUDENT_BUNDLE);
+		installAndStart(BundleBuilder.USER_BUNDLE);
 		
-		ServiceReference<AdminAccess> adminAccessReference = bundleContext
-				.getServiceReference(AdminAccess.class);
+		ServiceReference<IDatabase> dbReference = bundleContext
+				.getServiceReference(IDatabase.class);
+		
+		IDatabase adminAccess2 = bundleContext.getService(dbReference);
 
 //	ServiceReference<TemperatureReport> 
 //		temperatureReportReference = 
 //			bundleContext.getServiceReference(
 //				TemperatureReport.class);
 	
-		AdminAccess adminAccess2 = bundleContext.getService(adminAccessReference);
 		
 		funcRepo.registerFunction(myCampusFunctions);
 		funcRepo.registerFunction(courseFunctions);

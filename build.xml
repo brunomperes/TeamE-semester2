@@ -64,62 +64,62 @@
 
 		<jar update="no" destfile="administrator.jar" manifest="config/osgi/ADMINISTRATOR.MF">
 
-			<fileset dir="bin/" includes="team/e/components/administrator/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/administrator/*.class" />
 
 		</jar>
-		<jar update="no" destfile="db-mock.jar" manifest="config/osgi/DB-MOCK.MF">
+		<jar update="no" destfile="db-fake.jar" manifest="config/osgi/DB-FAKE.MF">
 
-			<fileset dir="bin/" includes="team/e/components/db/mock/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/db/fake/*.class" />
 
 		</jar>
 		<jar update="no" destfile="db.jar" manifest="config/osgi/DB.MF">
 
-			<fileset dir="bin/" includes="team/e/components/db/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/db/*.class" />
 
 		</jar>
 		<jar update="no" destfile="lecturer.jar" manifest="config/osgi/LECTURER.MF">
 
-			<fileset dir="bin/" includes="team/e/components/lecturer/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/lecturer/*.class" />
 
 		</jar>
 		<jar update="no" destfile="mycampus-stub.jar" manifest="config/osgi/MYCAMPUS-STUB.MF">
 
-			<fileset dir="bin/" includes="team/e/components/mycampus/stub/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/mycampus/stub/*.class" />
 
 		</jar>
 		<jar update="no" destfile="mycampus.jar" manifest="config/osgi/MYCAMPUS.MF">
 
-			<fileset dir="bin/" includes="team/e/components/mycampus/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/mycampus/*.class" />
 
 		</jar>
 		<jar update="no" destfile="student.jar" manifest="config/osgi/STUDENT.MF">
 
-			<fileset dir="bin/" includes="team/e/components/sysfunc/timetable/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/timetable/*.class" />
 
 		</jar>
 		<jar update="no" destfile="sysfunc-mycampus.jar" manifest="config/osgi/SYSFUNC-MYCAMPUS.MF">
 
-			<fileset dir="bin/" includes="team/e/components/sysfunc/mycampus/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/mycampus/*.class" />
 
 		</jar>
 		<jar update="no" destfile="sysfunc-repository.jar" manifest="config/osgi/SYSFUNC-REPOSITORY.MF">
 
-			<fileset dir="bin/" includes="team/e/components/sysfunc/repository/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/repository/*.class" />
 
 		</jar>
 		<jar update="no" destfile="sysfunc-repository-impl.jar" manifest="config/osgi/SYSFUNC-REPOSITORY-IMPL.MF">
 
-			<fileset dir="bin/" includes="team/e/components/sysfunc/repository/impl/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/repository/impl/*.class" />
 
 		</jar>
 		<jar update="no" destfile="sysfunc-timetable.jar" manifest="config/osgi/SYSFUNC-TIMETABLE.MF">
 
-			<fileset dir="bin/" includes="team/e/components/sysfunc/timetable/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/timetable/*.class" />
 
 		</jar>
 		<jar update="no" destfile="users.jar" manifest="config/osgi/USERS.MF">
 
-			<fileset dir="bin/" includes="team/e/components/users/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/users/*.class" />
 
 		</jar>
 

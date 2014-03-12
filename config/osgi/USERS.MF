@@ -1,9 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: User Management
-Bundle-SymbolicName: team.e.components.users
+Bundle-SymbolicName: uk.ac.gla.dcs.psd.team.e.components.users
 Bundle-Version: 1.0.0
+Bundle-Activator: uk.ac.gla.dcs.psd.team.e.components.users.Activator
 Bundle-Vendor: Team-E
 Bundle-Localization: plugin
-Import-Package: org.osgi.framework;version="1.3.0", team.e.components.sysfunc.repository
-Export-Package: team.e.components.users
+Import-Package: org.osgi.framework;version="1.3.0", 
+  uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository
+Export-Package: uk.ac.gla.dcs.psd.team.e.components.users
