@@ -120,6 +120,7 @@
 		<jar update="no" destfile="users.jar" manifest="config/osgi/USERS.MF">
 
 			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/users/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/users/auth/*.class" />
 
 		</jar>
 

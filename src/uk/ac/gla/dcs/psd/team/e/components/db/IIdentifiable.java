@@ -1,4 +1,4 @@
-package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
+package uk.ac.gla.dcs.psd.team.e.components.db;
 
 public interface IIdentifiable {
 	

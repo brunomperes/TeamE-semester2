@@ -1,5 +1,7 @@
 package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
+import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
+
 public class StudentHasTimetableSlot implements IIdentifiable {
 
 	private String id;

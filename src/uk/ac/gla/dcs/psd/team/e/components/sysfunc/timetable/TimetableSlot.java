@@ -2,6 +2,8 @@ package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
 import java.util.Date;
 
+import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
+
 public class TimetableSlot implements IIdentifiable {
 	private String id;
 	private Date beginDate;

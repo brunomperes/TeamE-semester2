@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
@@ -16,17 +17,17 @@ import uk.ac.gla.dcs.psd.team.e.components.users.auth.IAuthenticator;
 public class SessionStore {
 	
 	private Map<String, UserSession> userSessions;
-	private IAuthenticator authenticator;
+	private BundleContext context;
 	private IFunctionRepository funcRepo;
 	
-	public SessionStore(IAuthenticator authenticator, IFunctionRepository funcRepo) {
+	public SessionStore(BundleContext context, IFunctionRepository funcRepo) {
 		userSessions = new HashMap<String, UserSession>();
-		this.authenticator = authenticator; 
+		this.context = context;
 		this.funcRepo = funcRepo;
 	}
 
 	public String login(String username, String password) {
-		AuthResult result = authenticator.auth(username, password);
+		AuthResult result = getAuthenticator().auth(username, password);
 		UserAccess access;
 		
 		if (result.success && (access = getAccess(result.userType)) != null) {
@@ -42,6 +43,12 @@ public class SessionStore {
 	
 	public boolean logoff(String sessionID) {
 		return userSessions.remove(sessionID) != null;
+	}
+	
+	private IAuthenticator getAuthenticator() {
+		ServiceReference<IAuthenticator> s = context.getServiceReference(IAuthenticator.class);
+		IAuthenticator auth = context.getService(s);
+		return auth;
 	}
 	
 	/** Get UserAccess object of the given userType */
