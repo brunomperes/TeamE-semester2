@@ -110,7 +110,6 @@ public class FunctionalTests {
 	public void functionalRequirement4() {
 		boolean success = false;
 		int frequency = 2;
-
 		lecturerAccess.importMyCampusCourse("PSD3");
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 
@@ -124,7 +123,7 @@ public class FunctionalTests {
 	@Test
 	public void functionalRequirement8() {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
-		exampleSession=new Session("PSD3id", "PDS3 Lecture", 1, 60, 12, true, ((Course) mockDatabase.get("PSD3", Course.class)).getId());
+		exampleSession=new Session("PSD3id", "PDS3 Lecture", 1, 60, 12, true, "PSD3");
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
 		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",exampleSession.getCourseID(),1), TimetableSlot.class);
@@ -142,8 +141,8 @@ public class FunctionalTests {
 		boolean success = false;
 		
 		mockDatabase.add(new Course("PSD3","TS"), Course.class);
-		mockDatabase.add(new Session("PSD301","PSD3 Lecture",1,60,12,true,((Course) mockDatabase.get("PSD3", Course.class)).getId()), Course.class);
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",((Course) mockDatabase.get("PSD3", Course.class)).getId(), 1), TimetableSlot.class);
+		mockDatabase.add(new Session("PSD301","PSD3 Lecture",1,60,12,true,"PSD3"), Course.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "","PSD3", 1), TimetableSlot.class);
 		
 		success = studentAccess.bookTimetableSlot("TS1");
 		
