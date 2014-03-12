@@ -3,6 +3,7 @@ package uk.ac.gla.dcs.psd.team.e.components.db.fake;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,12 +87,12 @@ public class Database implements IDatabase {
 		}
 		return false;
 	}
-
+/*
 	private void populateDb() {
 		add(new Course("PSD3", "1"), Course.class);
 		add(new Session("0001", "tut", 1, 60, 11, true), Session.class);
 		add(new TimetableSlot("0001", new Date(15, 10, 2013), "Boyd Orr 720",
-				"1105053"), TimetableSlot.class);
-	}
+				"1105053", 1), TimetableSlot.class);
+	}*/
 
 }
