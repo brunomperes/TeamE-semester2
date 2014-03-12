@@ -89,7 +89,7 @@ public class NonFunctionalTests {
 	public void nonFunctionalPerformance1(){
 		mockDatabase.add(new Course("NewCourse", "NewCourse"), Course.class);
 		for (int i=1; i<=10; i++) {
-			courseFunctions.addSessionToCourse(new Session(Integer.toString(i), Integer.toString(i), 1, 50, 12, true), "NewCourse");
+			courseFunctions.addSessionToCourse(new Session(Integer.toString(i), Integer.toString(i), 1, 50, 12, true, null), "NewCourse");
 		}
 		Collection<Session> sessionList = courseFunctions.getCourseSessions("NewCourse");
 		assertEquals("Test supports 10 courses", 10, sessionList.size());
@@ -97,7 +97,7 @@ public class NonFunctionalTests {
 	
 	@Test
 	public void nonFunctionalPerformance3(){
-		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true), Session.class);
+		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true, null), Session.class);
 		for (int i=1; i<=20; i++) {
 			TimetableSlot timetableSlot = new TimetableSlot(Integer.toString(i), new Date(), "Bo103", Integer.toString(i) + "5562",null,1);
 			mockDatabase.add(timetableSlot, TimetableSlot.class);

@@ -164,9 +164,9 @@ public static BundleContext buildContext() throws Exception {
 		adminAccess.setUsername("root");
 		lecturerAccess.setUsername("Tim");
 
-		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
-		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true);
-		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false);
+		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3");
+		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true, "PSD3");
+		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false, "PSD3");
 	}
 
 	@Test
@@ -217,9 +217,11 @@ public static BundleContext buildContext() throws Exception {
 
 	@Test
 	public void functionalRequirement8() {
+		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
+		exampleSession=new Session("PSD3id", "PDS3 Lecture", 1, 60, 12, true, ((Course) mockDatabase.get("PSD3", Course.class)).getId());
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, "",/*sessionID*/null,1), TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",exampleSession.getCourseID(),1), TimetableSlot.class);
 		
 		assertTrue(adminAccess.assignRoomToSlot("BO 503", "TS1"));
 		
@@ -233,7 +235,9 @@ public static BundleContext buildContext() throws Exception {
 	public void functionalRequirement11() {
 		boolean success = false;
 		
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, "", /*sessionID*/null, 1), TimetableSlot.class);
+		mockDatabase.add(new Course("PSD3","TS"), Course.class);
+		mockDatabase.add(new Session("PSD301","PSD3 Lecture",1,60,12,true,((Course) mockDatabase.get("PSD3", Course.class)).getId()), Course.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",((Course) mockDatabase.get("PSD3", Course.class)).getId(), 1), TimetableSlot.class);
 		
 		success = studentAccess.bookTimetableSlot("TS1");
 		
@@ -253,7 +257,7 @@ public static BundleContext buildContext() throws Exception {
 		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);	
 		studentAccess.bookTimetableSlot("SLOT1");
 		
@@ -268,8 +272,8 @@ public static BundleContext buildContext() throws Exception {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
 		
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT2", exampleSession.getId(), "SLOT2"), SessionHasTimetableSlot.class);

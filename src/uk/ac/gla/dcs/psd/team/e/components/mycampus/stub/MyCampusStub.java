@@ -22,9 +22,9 @@ public class MyCampusStub implements IMyCampus{
 		courses.add(new Course("CS2", "NS3", "22TJ"));
 		
 		sessions = new ArrayList<Session>();
-		sessions.add(new Session("PSD3-1", "PSD3 Lab", 1, 50, 10, true));
-		sessions.add(new Session("PSD3-2", "PSD3 Tutorial", 2, 50, 10, false));
-		sessions.add(new Session("NSD3-1", "NS3 Lab", 1, 50, 12, true));
+		sessions.add(new Session("PSD3-1", "PSD3 Lab", 1, 50, 10, true, null));
+		sessions.add(new Session("PSD3-2", "PSD3 Tutorial", 2, 50, 10, false, null));
+		sessions.add(new Session("NSD3-1", "NS3 Lab", 1, 50, 12, true, null));
 		
 		relations = new ArrayList<CourseHasSession>();
 		

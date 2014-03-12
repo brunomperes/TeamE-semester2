@@ -16,17 +16,14 @@ public class CourseFunctions {
 	}
 
 	public Collection<Session> getCourseSessions(String courseID) {
-		Collection<IIdentifiable> courseSession = db
-				.getAll(CourseHasSession.class);
+		Collection<IIdentifiable> sessions = db.getAll(Session.class);
 		Collection<Session> result = new ArrayList<Session>();
 
-		for (IIdentifiable currentSessionID : courseSession) {
-			CourseHasSession intermediate = (CourseHasSession) currentSessionID;
-			Session s = (Session) db.get(intermediate.getSessionId(),
-					Session.class);
+		for (IIdentifiable session : sessions) {
+			Session intermediate = (Session) session;
 			// Checks if it returned something
-			if (s != null) {
-				result.add(s);
+			if (intermediate.getCourseID().equals(courseID)) {
+				result.add(intermediate);
 			}
 		}
 
