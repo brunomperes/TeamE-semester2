@@ -42,23 +42,17 @@ public class SessionFunctions {
 
 	public Collection<Session> getCompulsorySessionsForCourse(String courseID) {
 		
-		Collection<IIdentifiable> nonFilter = db.getAll(CourseHasSession.class);
-		Collection<Session> intermediate = new ArrayList<Session>();
+		Collection<IIdentifiable> nonFilter = db.getAll(Session.class);
 		Collection<Session> result = new ArrayList<Session>();
 		
 		for (IIdentifiable iIdentifiable : nonFilter) {
-			CourseHasSession courseSession = (CourseHasSession) iIdentifiable;
-			if(courseSession.getCourseId().equals(courseID)){
-				intermediate.add((Session) db.get(courseSession.getSessionId(), Session.class));
+			Session session = (Session) iIdentifiable;
+			if(session.getCourseID().equals(courseID)){
+				if (session.isCompulsory()){
+					result.add(session);
+				}
 			}
 		}
-		
-		for (Session session : intermediate) {
-			if (session.isCompulsory()){
-				result.add(session);
-			}
-		}
-		
 		
 		return result;
 	}

@@ -31,13 +31,6 @@ public class CourseFunctions {
 		return result;
 	}
 
-	public boolean addSession(Session newSession, String courseID) {
-
-		addSessionToCourse(newSession, courseID);
-
-		return false;
-	}
-
 	public Collection<Session> getAllSessions() {
 
 		Collection<IIdentifiable> courseSession = db.getAll(Course.class);
@@ -55,17 +48,13 @@ public class CourseFunctions {
 	}
 
 	public boolean addSessionToCourse(Session newSession, String courseID) {
-		CourseHasSession object = new CourseHasSession();
-		object.setCourseId(courseID);
-		object.setSessionId(newSession.getId());
-		boolean response = db.add(object, CourseHasSession.class);
-
+		newSession.setCourseID(courseID);
+		boolean response = db.add(newSession, Session.class);
 		return response;
 	}
 
 	public boolean addCourse(Course newCourse) {
-		boolean result = db.add(newCourse, Course.class);
-		return result;
+		return db.add(newCourse, Course.class);
 	}
 	
 	/**
@@ -73,17 +62,16 @@ public class CourseFunctions {
 	 */
 	public ArrayList<int[]> checkClashes(Course course) {
 		HashMap<Time, String> timetableStore = new HashMap<Time, String>();
-		List<IIdentifiable> courseSessions = db.getAll(CourseHasSession.class);
+		List<IIdentifiable> sessions = db.getAll(Session.class);
 		ArrayList<String> currentSessions = new ArrayList<String>();
 		ArrayList<String> otherSessions = new ArrayList<String>();
-		for (IIdentifiable i : courseSessions) {
-			CourseHasSession j = (CourseHasSession) i;
-			if (((Session) db.get(j.getSessionId(), Session.class))
-					.isCompulsory()) {
-				if (j.getCourseId().equals(course.getId())) {
-					currentSessions.add(j.getSessionId());
+		for (IIdentifiable i : sessions) {
+			Session j = (Session) i;
+			if (j.isCompulsory()) {
+				if (j.getCourseID().equals(course.getId())) {
+					currentSessions.add(j.getId());
 				} else {
-					otherSessions.add(j.getSessionId());
+					otherSessions.add(j.getId());
 				}
 			}
 		}

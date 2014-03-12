@@ -19,7 +19,7 @@ public class LecturerAccess extends UserAccess {
 		CourseFunctions crFuncs = (CourseFunctions) funcRepo
 				.getFunction(CourseFunctions.class);
 
-		return crFuncs.addSession(session, courseID);
+		return crFuncs.addSessionToCourse(session, courseID);
 	}
 
 	public Collection<Course> getMyCampusCourses() {

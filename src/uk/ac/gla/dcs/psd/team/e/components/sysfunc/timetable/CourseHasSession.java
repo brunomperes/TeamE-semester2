@@ -1,4 +1,4 @@
-package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
+/*package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
 
@@ -32,3 +32,4 @@ public class CourseHasSession implements IIdentifiable {
 	}
 
 }
+*/
