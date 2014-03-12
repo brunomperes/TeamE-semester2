@@ -36,22 +36,24 @@ public class TimetableSlotFunctions {
 	
 	public List<TimetableSlot> findTimeTableSlotForStudent(String studentID) {
 		
-		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
-		List<IIdentifiable> queryResult = (List<IIdentifiable>) db.getAll(TimetableSlot.class);
-		List<StudentHasTimetableSlot> intermediate = new ArrayList<StudentHasTimetableSlot>();
+		List<IIdentifiable> relations = db.getAll(StudentHasTimetableSlot.class);
 		
-		for (IIdentifiable iIdentifiable : queryResult) {
-			intermediate.add((StudentHasTimetableSlot) db.get(iIdentifiable.getId(), StudentHasTimetableSlot.class) ); 
-		}
-		
-		for (StudentHasTimetableSlot studentHasTimetableSlot : intermediate) {
-			if (studentHasTimetableSlot.getStudentId().equals(studentID)){
-				result.add((TimetableSlot) db.get(studentHasTimetableSlot.getTimetableSlotId(), TimetableSlot.class));
+		List<StudentHasTimetableSlot> filteredRelations = new ArrayList<StudentHasTimetableSlot>();
+		for (IIdentifiable i : relations) {
+			if (((StudentHasTimetableSlot) i).getStudentId().equals(studentID)) {
+				filteredRelations.add((StudentHasTimetableSlot) i);
 			}
+		}
+		//filteredRelations contains only relations of the desired student at this point
+		
+		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
+		for (StudentHasTimetableSlot i : filteredRelations) {
+			result.add((TimetableSlot) db.get(i.getTimetableSlotId(), TimetableSlot.class));
 		}
 		
 		return result;
 	}
+	
 
 	public List<TimetableSlot> findTimeTableSlotForLecturer(String lecturerID) {
 

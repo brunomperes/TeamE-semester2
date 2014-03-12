@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -46,6 +47,8 @@ public class FunctionalTests {
 	@BeforeClass
 	public static void setup() throws Exception {
 		bb = new BundleBuilder();
+		
+		UUID.randomUUID();
 		
 		bb.installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
 		bb.installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
@@ -145,10 +148,10 @@ public class FunctionalTests {
 		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "","PSD3", 1), TimetableSlot.class);
 		
 		success = studentAccess.bookTimetableSlot("TS1");
-		
-		timetableSlotFunctions.findTimeTableSlotForStudent(studentAccess.getUsername());
+		List<TimetableSlot> bookedTimetableSlots = timetableSlotFunctions.findTimeTableSlotForStudent(studentAccess.getUsername());
 		
 		assertTrue(success);
+		assertTrue(bookedTimetableSlots.size() == 1);
 	}
 
 	@Test
@@ -186,7 +189,7 @@ public class FunctionalTests {
 	}
 	
 	@AfterClass
-	public static void tearDown () throws Exception{
+	public static void tearDown() throws Exception{
 		bb.tearDown();
 	}
 
