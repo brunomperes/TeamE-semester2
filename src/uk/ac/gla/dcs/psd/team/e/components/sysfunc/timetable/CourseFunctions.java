@@ -2,7 +2,6 @@ package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
