@@ -132,13 +132,14 @@ public static BundleContext buildContext() throws Exception {
 		installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
-		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
-		installAndStart(BundleBuilder.LECTURER_BUNDLE);	
 		installAndStart(BundleBuilder.MYCAMPUS_BUNDLE);
 		installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_MYCAMPUS_BUNDLE);
-		installAndStart(BundleBuilder.STUDENT_BUNDLE);
 		installAndStart(BundleBuilder.USER_BUNDLE);
+		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
+		installAndStart(BundleBuilder.LECTURER_BUNDLE);	
+		installAndStart(BundleBuilder.STUDENT_BUNDLE);
+		
 		
 		ServiceReference<IDatabase> dbReference = bundleContext
 				.getServiceReference(IDatabase.class);

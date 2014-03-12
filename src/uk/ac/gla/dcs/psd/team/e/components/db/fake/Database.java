@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
+import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.IIdentifiable;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
 

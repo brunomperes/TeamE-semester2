@@ -3,8 +3,6 @@ package uk.ac.gla.dcs.psd.team.e.components.db;
 import java.util.Collection;
 import java.util.List;
 
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.IIdentifiable;
-
 public interface IDatabase {
 
 	public boolean delete(String ID, Class<? extends IIdentifiable> cl);
