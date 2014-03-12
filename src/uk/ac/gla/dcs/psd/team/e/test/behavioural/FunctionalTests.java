@@ -128,7 +128,7 @@ public static BundleContext buildContext() throws Exception {
 		
 		bundleContext = buildContext();
 		
-		installAndStart(BundleBuilder.DB_BUNDLE);
+		//installAndStart(BundleBuilder.DB_BUNDLE);
 		installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);

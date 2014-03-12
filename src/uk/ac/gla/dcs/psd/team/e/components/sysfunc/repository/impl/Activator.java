@@ -1,10 +1,10 @@
-package uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository;
+package uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.IFunctionRepository;
 
 public class Activator implements BundleActivator{
 	
