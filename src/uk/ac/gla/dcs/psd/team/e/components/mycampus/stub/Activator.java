@@ -4,10 +4,8 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.components.mycampus.IMyCampus;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.IFunctionRepository;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
 import uk.ac.gla.dcs.psd.team.e.components.users.auth.IAuthenticator;
 
 public class Activator implements BundleActivator{
@@ -19,8 +17,7 @@ public class Activator implements BundleActivator{
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
-		IFunctionRepository funcRepo=context.getService(context.getServiceReference(FunctionRepository.class));
-		IDatabase db=context.getService(context.getServiceReference(IDatabase.class));
+		IFunctionRepository funcRepo=context.getService(context.getServiceReference(IFunctionRepository.class));
 		myCStub=new MyCampusStub(funcRepo);
 		myCampusStubRegistion=context.registerService(IMyCampus.class, myCStub, null);
 		

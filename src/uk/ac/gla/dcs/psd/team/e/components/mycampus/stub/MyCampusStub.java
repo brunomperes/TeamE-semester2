@@ -9,8 +9,9 @@ import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.CourseHasSession;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
 import uk.ac.gla.dcs.psd.team.e.components.users.auth.AuthResult;
+import uk.ac.gla.dcs.psd.team.e.components.users.auth.IAuthenticator;
 
-public class MyCampusStub implements IMyCampus{
+public class MyCampusStub implements IMyCampus, IAuthenticator{
 	
 	private ArrayList<Course> courses;
 	private ArrayList<Session> sessions;

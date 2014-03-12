@@ -8,12 +8,11 @@ import uk.ac.gla.dcs.psd.team.e.components.users.IAccessFactory;
 
 public class Activator implements BundleActivator{
 	
-	private ServiceRegistration<IAccessFactory<AdminAccess>> registration;
+	private ServiceRegistration<IAccessFactory> registration;
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void start(BundleContext context) throws Exception {
-		registration=context.registerService((Class<IAccessFactory<AdminAccess>>) Class.forName("IAccessFactory<AdminAccess>"), new AdminAccessFactory(), null);
+		registration=context.registerService(IAccessFactory.class, new AdminAccessFactory(), null);
 	}
 	
 	@Override

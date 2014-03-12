@@ -94,7 +94,7 @@
 		</jar>
 		<jar update="no" destfile="student.jar" manifest="config/osgi/STUDENT.MF">
 
-			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/sysfunc/timetable/*.class" />
+			<fileset dir="bin/" includes="uk/ac/gla/dcs/psd/team/e/components/student/*.class" />
 
 		</jar>
 		<jar update="no" destfile="sysfunc-mycampus.jar" manifest="config/osgi/SYSFUNC-MYCAMPUS.MF">
