@@ -81,7 +81,7 @@ public class FunctionalTests {
 	@Test
 	public void functionalRequirement1() {
 		boolean success = false;
-		lecturerAccess.importMyCampusCourse("PSD3");
+
 		for (Course course : lecturerAccess.getMyCampusCourses()) {
 			if (course.getName().equals("PSD3"))
 				success = true;
@@ -177,12 +177,13 @@ public class FunctionalTests {
 	public void functionalRequirement14() {
 			
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
-		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3"), "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
 		
-		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession(exampleSession.getId());
+		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession("PSD3-L1");
 		
 		assertTrue(queryResult != null);
 		assertTrue(queryResult.size() == 2);

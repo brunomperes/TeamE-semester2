@@ -77,21 +77,15 @@ public class TimetableSlotFunctions {
 
 	public List<TimetableSlot> findTimeTableSlotForLecturerAndSession(
 			String lecturerID, String sessionID) {
+		
+		List<TimetableSlot> lecturerSlots = findTimeTableSlotForLecturer(lecturerID);
 		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
-		List<IIdentifiable> queryResult = (List<IIdentifiable>) db
-				.getAll(TimetableSlot.class);
-		List<TimetableSlot> intermediate = new ArrayList<TimetableSlot>();
-
-		for (IIdentifiable iIdentifiable : queryResult) {
-			intermediate.add((TimetableSlot) iIdentifiable);
-		}
-
-		for (TimetableSlot lecturerHasTimetableSlot : intermediate) {
-			if (lecturerHasTimetableSlot.getTutorID().equals(lecturerID) && lecturerHasTimetableSlot.getTutorID().equals(sessionID)) {
-				result.add(lecturerHasTimetableSlot);
+		for (TimetableSlot s : lecturerSlots) {
+			if (s.getSessionID().equals(sessionID)) {
+				result.add(s);
 			}
 		}
-
+		
 		return result;
 	}
 
