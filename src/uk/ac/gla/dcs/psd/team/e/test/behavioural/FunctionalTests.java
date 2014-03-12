@@ -26,15 +26,7 @@ import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccess;
 import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus.MyCampusFunctions;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.CourseFunctions;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionFunctions;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionHasTimetableSlot;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
-import uk.ac.gla.dcs.psd.team.e.components.users.IAccessFactory;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.*;
 import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
 import uk.ac.gla.dcs.psd.team.e.test.steps.BundleBuilder;
 
@@ -234,8 +226,7 @@ public static BundleContext buildContext() throws Exception {
 		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
-		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);	
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
 		studentAccess.bookTimetableSlot("SLOT1");
 		
 		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
@@ -249,11 +240,8 @@ public static BundleContext buildContext() throws Exception {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy",((Course)mockDatabase.get("PSD3", Course.class)).getId(),1) , TimetableSlot.class);
-		
-		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);
-		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT2", exampleSession.getId(), "SLOT2"), SessionHasTimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
 		
 		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession(exampleSession.getId());
 		

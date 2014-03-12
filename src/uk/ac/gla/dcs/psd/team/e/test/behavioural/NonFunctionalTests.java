@@ -24,13 +24,7 @@ import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccess;
 import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccessFactory;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus.MyCampusFunctions;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.CourseFunctions;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionFunctions;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionHasTimetableSlot;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.*;
 import uk.ac.gla.dcs.psd.team.e.components.users.UserAccess;
 import uk.ac.gla.dcs.psd.team.e.components.users.auth.AuthResult;
 
@@ -99,14 +93,13 @@ public class NonFunctionalTests {
 	public void nonFunctionalPerformance3(){
 		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true, null), Session.class);
 		for (int i=1; i<=20; i++) {
-			TimetableSlot timetableSlot = new TimetableSlot(Integer.toString(i), new Date(), "Bo103", Integer.toString(i) + "5562",null,1);
+			TimetableSlot timetableSlot = new TimetableSlot(Integer.toString(i), new Date(), "Bo103", Integer.toString(i) + "5562","OurSession",1);
 			mockDatabase.add(timetableSlot, TimetableSlot.class);
-			mockDatabase.add(new SessionHasTimetableSlot(Integer.toString(i), "OurSession", Integer.toString(i)), SessionHasTimetableSlot.class);
 		}
-		List<IIdentifiable> timetableSlotList = mockDatabase.getAll(SessionHasTimetableSlot.class);
+		List<IIdentifiable> timetableSlotList = mockDatabase.getAll(TimetableSlot.class);
 		int count = 0;
 		for (IIdentifiable timetableSlot: timetableSlotList){
-			if (((SessionHasTimetableSlot) timetableSlot).getSessionId().equals("OurSession")){
+			if (((TimetableSlot) timetableSlot).getSessionID().equals("OurSession")){
 				count++;
 			}
 		}

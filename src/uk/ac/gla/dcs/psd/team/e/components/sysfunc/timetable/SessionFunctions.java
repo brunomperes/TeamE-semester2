@@ -84,10 +84,7 @@ public class SessionFunctions {
 		Collection<Session> result = new ArrayList<Session>();
 		
 		for (StudentHasTimetableSlot studentHasTimetableSlot : slotsStudentIsIn) {
-			Collection<SessionHasTimetableSlot> intermediate = selectSessionHasTimetableSlotByTimetable(studentHasTimetableSlot.getTimetableSlotId());
-			for (SessionHasTimetableSlot sessionHasTimetableSlot : intermediate) {
-				result.add((Session) db.get(sessionHasTimetableSlot.getSessionId(), Session.class));
-			}
+			result.addAll(selectSessionByTimetable(studentHasTimetableSlot.getTimetableSlotId()));
 		}
 		
 		return result;
@@ -113,14 +110,14 @@ public class SessionFunctions {
 		
 	}
 	
-	public Collection<SessionHasTimetableSlot> selectSessionHasTimetableSlotByTimetable(String timetableID){
-		Collection<IIdentifiable> all = db.getAll(SessionHasTimetableSlot.class);
-		Collection<SessionHasTimetableSlot> result = new ArrayList<SessionHasTimetableSlot>();
+	public Collection<Session> selectSessionByTimetable(String timetableID){
+		Collection<IIdentifiable> all = db.getAll(TimetableSlot.class);
+		Collection<Session> result = new ArrayList<Session>();
 		
 		for (IIdentifiable one : all) {
-			SessionHasTimetableSlot casted = (SessionHasTimetableSlot) one;
-			if(casted.getSessionId().equals(timetableID)){
-				result.add(casted);
+			TimetableSlot casted = (TimetableSlot) one;
+			if(casted.getId().equals(timetableID)){
+				result.add((Session)db.get(casted.getSessionID(), Session.class));
 			}
 		}
 		
