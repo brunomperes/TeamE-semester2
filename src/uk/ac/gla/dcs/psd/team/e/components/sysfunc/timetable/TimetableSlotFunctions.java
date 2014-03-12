@@ -16,9 +16,7 @@ public class TimetableSlotFunctions {
 	
 	public boolean addStudentToSlot(String studentID, String slotID){
 
-		StudentHasTimetableSlot studentSlot = new StudentHasTimetableSlot();
-		studentSlot.setStudentId(studentID);
-		studentSlot.setTimetableSlotId(slotID);
+		StudentHasTimetableSlot studentSlot = new StudentHasTimetableSlot(studentID,slotID);
 		
 		boolean response = db.add(studentSlot, StudentHasTimetableSlot.class);
 		

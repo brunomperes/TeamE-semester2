@@ -3,13 +3,15 @@ package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
 
 public class StudentHasTimetableSlot implements IIdentifiable {
-
+	static int idCounter = 0;
+	
 	private String id;
 	private String studentId;
 	private String timetableSlotId;
 	
-	public StudentHasTimetableSlot(String id, String studentID, String timetableSlotId){
-		this.id=id;
+	public StudentHasTimetableSlot(String studentID, String timetableSlotId){
+		this.id=Integer.toString(idCounter);
+		idCounter++;
 		this.studentId=studentID;
 		this.timetableSlotId=timetableSlotId;
 	}
