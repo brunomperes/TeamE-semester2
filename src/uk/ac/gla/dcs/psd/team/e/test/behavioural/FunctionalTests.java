@@ -165,7 +165,7 @@ public class FunctionalTests {
 	public void functionalRequirement8() {
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, ""), TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, "",/*sessionID*/null,1), TimetableSlot.class);
 		
 		assertTrue(adminAccess.assignRoomToSlot("BO 503", "TS1"));
 		
@@ -179,7 +179,7 @@ public class FunctionalTests {
 	public void functionalRequirement11() {
 		boolean success = false;
 		
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, ""), TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, "", /*sessionID*/null, 1), TimetableSlot.class);
 		
 		success = studentAccess.bookTimetableSlot("TS1");
 		
@@ -199,7 +199,7 @@ public class FunctionalTests {
 		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);	
 		studentAccess.bookTimetableSlot("SLOT1");
 		
@@ -214,8 +214,8 @@ public class FunctionalTests {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy") , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy",null,1) , TimetableSlot.class);
 		
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT1", exampleSession.getId(), "SLOT1"), SessionHasTimetableSlot.class);
 		mockDatabase.add(new SessionHasTimetableSlot("SESSIONSLOT2", exampleSession.getId(), "SLOT2"), SessionHasTimetableSlot.class);

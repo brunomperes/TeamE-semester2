@@ -1,19 +1,24 @@
 package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TimetableSlot implements IIdentifiable {
 	private String id;
 	private Date beginDate;
 	private String location;
 	private String tutorID;
+	private String sessionID;
+	private int weekDay;
 
 	public TimetableSlot(String id, Date beginDate, String location,
-			String tutorID) {
+			String tutorID, String sessionID, int weekDay) {
 		this.id = id;
 		this.beginDate = (Date) beginDate.clone();
 		this.location = location;
 		this.tutorID = tutorID;
+		this.sessionID = sessionID;
+		this.weekDay = weekDay;
 	}
 
 	public String getId() {
@@ -48,4 +53,19 @@ public class TimetableSlot implements IIdentifiable {
 		this.tutorID = tutorID;
 	}
 
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+	
+	public String getSessionID() {
+		return sessionID;
+	}
+	
+	public void setWeekday(int wd){
+		this.weekDay = wd;
+	}
+	
+	public int getWeekday() {
+		return weekDay;
+	}
 }

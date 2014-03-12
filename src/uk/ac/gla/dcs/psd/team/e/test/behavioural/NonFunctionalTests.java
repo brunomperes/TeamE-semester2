@@ -99,7 +99,7 @@ public class NonFunctionalTests {
 	public void nonFunctionalPerformance3(){
 		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true), Session.class);
 		for (int i=1; i<=20; i++) {
-			TimetableSlot timetableSlot = new TimetableSlot(Integer.toString(i), new Date(), "Bo103", Integer.toString(i) + "5562");
+			TimetableSlot timetableSlot = new TimetableSlot(Integer.toString(i), new Date(), "Bo103", Integer.toString(i) + "5562",null,1);
 			mockDatabase.add(timetableSlot, TimetableSlot.class);
 			mockDatabase.add(new SessionHasTimetableSlot(Integer.toString(i), "OurSession", Integer.toString(i)), SessionHasTimetableSlot.class);
 		}
