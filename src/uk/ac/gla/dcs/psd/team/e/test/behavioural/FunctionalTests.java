@@ -1,18 +1,13 @@
 package uk.ac.gla.dcs.psd.team.e.test.behavioural;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.osgi.framework.launch.Framework;
 
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccess;
 import uk.ac.gla.dcs.psd.team.e.components.administrator.AdminAccessFactory;
@@ -20,110 +15,52 @@ import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.components.db.fake.Database;
 import uk.ac.gla.dcs.psd.team.e.components.lecturer.LecturerAccess;
 import uk.ac.gla.dcs.psd.team.e.components.lecturer.LecturerAccessFactory;
-import uk.ac.gla.dcs.psd.team.e.components.mycampus.IMyCampus;
-import uk.ac.gla.dcs.psd.team.e.components.mycampus.stub.MyCampusStub;
 import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccess;
 import uk.ac.gla.dcs.psd.team.e.components.student.StudentAccessFactory;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus.MyCampusFunctions;
 import uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository.impl.FunctionRepository;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.*;
-import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.CourseFunctions;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.SessionFunctions;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.StudentHasCourse;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
+import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlotFunctions;
 import uk.ac.gla.dcs.psd.team.e.test.steps.BundleBuilder;
 
 public class FunctionalTests {
 	private static LecturerAccessFactory lecturerAccessFactory = new LecturerAccessFactory();
 	private static IDatabase mockDatabase = new Database();
 	private static FunctionRepository funcRepo = new FunctionRepository();
-	private static IMyCampus myCampus = new MyCampusStub(funcRepo);
 	private static LecturerAccess lecturerAccess = lecturerAccessFactory.newInstance();
 	private static AdminAccess adminAccess =  new AdminAccessFactory().newInstance();
 	private static StudentAccess studentAccess =  new StudentAccessFactory().newInstance();
 	private static Session exampleSession;
 	private static Session exampleSession2;
 	private static Session exampleSession3;
-	private static MyCampusFunctions myCampusFunctions = new MyCampusFunctions(myCampus);
 	private static CourseFunctions courseFunctions = new CourseFunctions(mockDatabase);
 	private static SessionFunctions sessionFunctions = new SessionFunctions(mockDatabase);
 	private static TimetableSlotFunctions timetableSlotFunctions = new TimetableSlotFunctions(mockDatabase);
 	
-	private static BundleContext bundleContext;
-	private static Framework framework;
-	
-public static BundleContext buildContext() throws Exception {
-		
-		// Clean up any resources left behind by failed tests
-		FunctionalTests.recursiveDelete(new File("felix-cache"));
-		
-		String extraPackages =
-				"uk.ac.gla.dcs.psd.team.e.components.db,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.mycampus,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository";
-		
-		framework = 
-			ConfiguredFrameworkFactory.createFelixFramework(
-				extraPackages);
-
-		bundleContext = framework.getBundleContext();
-		
-		//...
-		
-		Integer actualNumberOfBundles = 
-			bundleContext.getBundles().length;
-		
-		String message = 
-			"If cleanly initialised, the framework should "
-			+ "only contain  " + 11 + " bundles.";
-		
-		return bundleContext;
-		
-	}
-
-	public static void installAndStart(String bundleFile) throws Exception{
-		
-		Bundle installedBundle = 
-			bundleContext.installBundle(
-					bundleFile);
-		
-		installedBundle.start();
-				
-	}
-
-	private static void recursiveDelete(File file){
-		if (!file.exists()) return;
-		if (file.isDirectory()){
-			for (File subFile :file.listFiles())
-				recursiveDelete(subFile);
-		}
-		file.delete();
-	}
+	private static BundleBuilder bb;
 
 	@BeforeClass
 	public static void setup() throws Exception {
+		bb = new BundleBuilder();
 		
-		bundleContext = buildContext();
+		bb.installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
+		bb.installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
+		bb.installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
+		bb.installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_IMPL_BUNDLE);
+		bb.installAndStart(BundleBuilder.USER_BUNDLE);
+		bb.installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
+		bb.installAndStart(BundleBuilder.SYSFUNC_MYCAMPUS_BUNDLE);
+		bb.installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
+		bb.installAndStart(BundleBuilder.LECTURER_BUNDLE);	
+		bb.installAndStart(BundleBuilder.STUDENT_BUNDLE);
 		
-		installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
-		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
-		installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
-		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_IMPL_BUNDLE);
-		installAndStart(BundleBuilder.USER_BUNDLE);
-		installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
-		installAndStart(BundleBuilder.SYSFUNC_MYCAMPUS_BUNDLE);
-		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
-		installAndStart(BundleBuilder.LECTURER_BUNDLE);	
-		installAndStart(BundleBuilder.STUDENT_BUNDLE);
-		
-		
-		ServiceReference<IDatabase> dbReference = bundleContext
-				.getServiceReference(IDatabase.class);
-		
-		IDatabase adminAccess2 = bundleContext.getService(dbReference);
-	
-		
-		funcRepo.registerFunction(myCampusFunctions);
+		funcRepo.registerFunction(timetableSlotFunctions);
 		funcRepo.registerFunction(courseFunctions);
 		funcRepo.registerFunction(sessionFunctions);
-		funcRepo.registerFunction(timetableSlotFunctions);
 		
 		lecturerAccess.setFuncRepo(funcRepo);
 		adminAccess.setFuncRepo(funcRepo);
@@ -247,6 +184,11 @@ public static BundleContext buildContext() throws Exception {
 		
 		assertTrue(queryResult != null);
 		assertTrue(queryResult.size() == 2);
+	}
+	
+	@AfterClass
+	public static void tearDown () throws Exception{
+		bb.tearDown();
 	}
 
 }
