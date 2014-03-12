@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -51,6 +52,8 @@ public class FunctionalTests {
 	public static void setup() throws Exception {
 		bb = new BundleBuilder();
 		
+		UUID.randomUUID();
+		
 		bb.installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
 		bb.installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
 		bb.installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
@@ -83,7 +86,7 @@ public class FunctionalTests {
 	@Test
 	public void functionalRequirement1() {
 		boolean success = false;
-		lecturerAccess.importMyCampusCourse("PSD3");
+
 		for (Course course : lecturerAccess.getMyCampusCourses()) {
 			if (course.getName().equals("PSD3"))
 				success = true;
@@ -150,10 +153,10 @@ public class FunctionalTests {
 		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "","PSD3", 1), TimetableSlot.class);
 		
 		success = studentAccess.bookTimetableSlot("TS1");
-		
-		timetableSlotFunctions.findTimeTableSlotForStudent(studentAccess.getUsername());
+		List<TimetableSlot> bookedTimetableSlots = timetableSlotFunctions.findTimeTableSlotForStudent(studentAccess.getUsername());
 		
 		assertTrue(success);
+		assertTrue(bookedTimetableSlots.size() == 1);
 	}
 
 	@Test
@@ -179,19 +182,20 @@ public class FunctionalTests {
 	public void functionalRequirement14() {
 			
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
-		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3"), "PSD3");
 		
-		boolean result = mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
-		boolean result2 = mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
 		
-		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession(exampleSession.getId());
+		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession("PSD3-L1");
 		
-		assertTrue(result && result2);
-		//assertTrue(queryResult.size() == 2);
+		assertTrue(queryResult!=null);
+		assertTrue(queryResult.size() == 2);
 	}
 	
 	@AfterClass
-	public static void tearDown () throws Exception{
+	public static void tearDown() throws Exception{
 		bb.tearDown();
 	}
 
