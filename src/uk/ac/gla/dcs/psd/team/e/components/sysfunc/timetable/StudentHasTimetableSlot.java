@@ -7,6 +7,12 @@ public class StudentHasTimetableSlot implements IIdentifiable {
 	private String id;
 	private String studentId;
 	private String timetableSlotId;
+	
+	public StudentHasTimetableSlot(String id, String studentID, String timetableSlotId){
+		this.id=id;
+		this.studentId=studentID;
+		this.timetableSlotId=timetableSlotId;
+	}
 
 	public String getId() {
 		return id;
