@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.lang.AssertionError;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
@@ -23,15 +24,30 @@ public class Database implements IDatabase {
 	// TODO suppress this warning if everything's fine.
 	@Override
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
-		return tableMap.get(cl.getName());
+		List<IIdentifiable>table = tableMap.get(cl.getName());
+		for (IIdentifiable i: table){
+			if (i == null){
+				table.remove(i);
+			}
+		}
+		return table;
 	}
 
 	@Override
 	public Object get(String ID, Class<? extends IIdentifiable> cl) {
+		if (ID == null) {
+			return null;
+		}
 		List<IIdentifiable> allElements = getAll(cl);
 		for (IIdentifiable element : allElements) {
-			if (element.getId().equals(ID))
-				return (element);
+			if (element != null) {
+				String j = element.getId();
+				if (j != null) {
+					if (element.getId().equals(ID)){
+						return (element);
+					}
+				}
+			}
 		}
 		return null;
 	}
@@ -46,11 +62,18 @@ public class Database implements IDatabase {
 	@Override
 	// TODO suppress this warning if everything's fine.
 	public boolean add(IIdentifiable o, Class<? extends IIdentifiable> cl) {
-		addTable(cl);
-		tableMap.get(cl.getName()).add(o);
-		return true;
+		if (o != null) {
+			addTable(cl);
+			tableMap.get(cl.getName()).add(o);
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
-	
+	/**
+	 * Only adds non-null values.
+	 */
 	public <T extends Collection<? extends IIdentifiable>> boolean addAll(T c, Class<? extends IIdentifiable> cl) {
 		for (IIdentifiable i: c){
 			add(i, cl);
