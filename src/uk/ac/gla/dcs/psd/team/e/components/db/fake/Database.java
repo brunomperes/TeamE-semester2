@@ -24,12 +24,13 @@ public class Database implements IDatabase {
 	// TODO suppress this warning if everything's fine.
 	@Override
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
+		
 		List<IIdentifiable>table = tableMap.get(cl.getName());
-		for (IIdentifiable i: table){
+		/*for (IIdentifiable i: table){
 			if (i == null){
 				table.remove(i);
 			}
-		}
+		}*/
 		return table;
 	}
 

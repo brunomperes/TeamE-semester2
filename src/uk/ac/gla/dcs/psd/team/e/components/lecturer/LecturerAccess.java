@@ -33,11 +33,11 @@ public class LecturerAccess extends UserAccess {
 
 	public boolean importMyCampusCourse(String courseID) {
 		IFunctionRepository funcRepo = getFuncRepo();
-		MyCampusFunctions mcFuncs = (MyCampusFunctions) funcRepo
-				.getFunction(MyCampusFunctions.class);
-		CourseFunctions crFuncs = (CourseFunctions) funcRepo
-				.getFunction(CourseFunctions.class);
-
+		MyCampusFunctions mcFuncs = (MyCampusFunctions) funcRepo.getFunction(MyCampusFunctions.class);
+		CourseFunctions crFuncs = (CourseFunctions) funcRepo.getFunction(CourseFunctions.class);
+		if(mcFuncs == null){
+			throw new AssertionError("mcFuncs not initialized");
+		}
 		Collection<Course> courses = mcFuncs.getCourseList();
 		for (Course course : courses) {
 			if (course.getId().equals(courseID)) {

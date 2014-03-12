@@ -27,10 +27,11 @@ public class SessionFunctions {
 
 		Collection<Session> allCompulsorySessionForAllCourses = new ArrayList<Session>();
 		for (Course course : coursesEnroledByStudent) {
-			Collection<Session> currentCompulsorySessions = getCompulsorySessionsForCourse(course
-					.getId());
-			for (Session session : currentCompulsorySessions) {
-				allCompulsorySessionForAllCourses.add(session);
+			if(course != null){
+				Collection<Session> currentCompulsorySessions = getCompulsorySessionsForCourse(course.getId());
+				for (Session session : currentCompulsorySessions) {
+					allCompulsorySessionForAllCourses.add(session);
+				}
 			}
 		}
 
