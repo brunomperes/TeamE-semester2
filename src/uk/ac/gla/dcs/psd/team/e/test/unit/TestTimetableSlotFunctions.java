@@ -52,9 +52,9 @@ public class TestTimetableSlotFunctions
 		adminAccess.setUsername("root");
 		lecturerAccess.setUsername("Tim");
 
-		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
-		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true);
-		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false);
+		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true, null);
+		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true, null);
+		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false, null);
 		
 		mockDatabase.add(exampleSession, Session.class);
 		

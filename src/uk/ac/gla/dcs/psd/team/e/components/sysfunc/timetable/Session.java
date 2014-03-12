@@ -11,17 +11,19 @@ public class Session implements IIdentifiable {
 	private int durationMinutes;
 	private int durationWeeks;
 	private boolean compulsory;
+	private String courseID;
 	
 	//Needed for MyCampusStub. Won't be needed when we get this info from mycampus directly
 	public Session(String id, String name,
 			int frequency, int durationMinutes, int durationWeeks,
-			boolean compulsory) {
+			boolean compulsory, String courseID) {
 		this.id = id;
 		this.name = name;
 		this.frequency = frequency;
 		this.durationMinutes = durationMinutes;
 		this.durationWeeks = durationWeeks;
 		this.compulsory = compulsory;
+		this.courseID = courseID;
 	}
 
 	public String getId() {
@@ -71,5 +73,12 @@ public class Session implements IIdentifiable {
 	public void setCompulsory(boolean compulsory) {
 		this.compulsory = compulsory;
 	}
-
+	
+	public void setCourseID(String cid) {
+		this.courseID = cid;
+	}
+	
+	public String getCourseID(){
+		return courseID;
+	}
 }

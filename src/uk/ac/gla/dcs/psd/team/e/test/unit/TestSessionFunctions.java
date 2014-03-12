@@ -55,9 +55,9 @@ public class TestSessionFunctions
 		adminAccess.setUsername("root");
 		lecturerAccess.setUsername("Tim");
 
-		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true);
-		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true);
-		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false);
+		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true, null);
+		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true, null);
+		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false, null);
 		
 		mockDatabase.add(exampleSession, Session.class);
 		
@@ -66,7 +66,7 @@ public class TestSessionFunctions
 	@Test
 	public void getNewSessionTest()
 	{
-		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true), Session.class);
+		mockDatabase.add(new Session("OurSession", "OurSession", 1, 50, 12, true, null), Session.class);
 		assertTrue("Cannot retrieve session", !sessionFunctions.getSession("OurSession").equals(null));
 	}
 	

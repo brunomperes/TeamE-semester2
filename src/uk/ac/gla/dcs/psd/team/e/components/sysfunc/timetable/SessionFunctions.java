@@ -42,23 +42,17 @@ public class SessionFunctions {
 
 	public Collection<Session> getCompulsorySessionsForCourse(String courseID) {
 		
-		Collection<IIdentifiable> nonFilter = db.getAll(CourseHasSession.class);
-		Collection<Session> intermediate = new ArrayList<Session>();
+		Collection<IIdentifiable> nonFilter = db.getAll(Session.class);
 		Collection<Session> result = new ArrayList<Session>();
 		
 		for (IIdentifiable iIdentifiable : nonFilter) {
-			CourseHasSession courseSession = (CourseHasSession) iIdentifiable;
-			if(courseSession.getCourseId().equals(courseID)){
-				intermediate.add((Session) db.get(courseSession.getSessionId(), Session.class));
+			Session session = (Session) iIdentifiable;
+			if(session.getCourseID().equals(courseID)){
+				if (session.isCompulsory()){
+					result.add(session);
+				}
 			}
 		}
-		
-		for (Session session : intermediate) {
-			if (session.isCompulsory()){
-				result.add(session);
-			}
-		}
-		
 		
 		return result;
 	}
@@ -90,10 +84,7 @@ public class SessionFunctions {
 		Collection<Session> result = new ArrayList<Session>();
 		
 		for (StudentHasTimetableSlot studentHasTimetableSlot : slotsStudentIsIn) {
-			Collection<SessionHasTimetableSlot> intermediate = selectSessionHasTimetableSlotByTimetable(studentHasTimetableSlot.getTimetableSlotId());
-			for (SessionHasTimetableSlot sessionHasTimetableSlot : intermediate) {
-				result.add((Session) db.get(sessionHasTimetableSlot.getSessionId(), Session.class));
-			}
+			result.addAll(selectSessionByTimetable(studentHasTimetableSlot.getTimetableSlotId()));
 		}
 		
 		return result;
@@ -119,14 +110,14 @@ public class SessionFunctions {
 		
 	}
 	
-	public Collection<SessionHasTimetableSlot> selectSessionHasTimetableSlotByTimetable(String timetableID){
-		Collection<IIdentifiable> all = db.getAll(SessionHasTimetableSlot.class);
-		Collection<SessionHasTimetableSlot> result = new ArrayList<SessionHasTimetableSlot>();
+	public Collection<Session> selectSessionByTimetable(String timetableID){
+		Collection<IIdentifiable> all = db.getAll(TimetableSlot.class);
+		Collection<Session> result = new ArrayList<Session>();
 		
 		for (IIdentifiable one : all) {
-			SessionHasTimetableSlot casted = (SessionHasTimetableSlot) one;
-			if(casted.getSessionId().equals(timetableID)){
-				result.add(casted);
+			TimetableSlot casted = (TimetableSlot) one;
+			if(casted.getId().equals(timetableID)){
+				result.add((Session)db.get(casted.getSessionID(), Session.class));
 			}
 		}
 		
