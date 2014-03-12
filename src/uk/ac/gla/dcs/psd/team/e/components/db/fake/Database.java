@@ -2,16 +2,12 @@ package uk.ac.gla.dcs.psd.team.e.components.db.fake;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Course;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.Session;
-import uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable.TimetableSlot;
+
 
 /**
  * The current implementation of the database, does not check for duplicated IDs

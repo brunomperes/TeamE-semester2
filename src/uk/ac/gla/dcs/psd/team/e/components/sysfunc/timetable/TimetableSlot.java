@@ -1,7 +1,6 @@
 package uk.ac.gla.dcs.psd.team.e.components.sysfunc.timetable;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
 
