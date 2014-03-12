@@ -23,7 +23,7 @@ public class BundleBuilder {
 	final static private Integer EXPECTED_NUMBER_OF_BUNDLES = 7;
 	
 	final static public String ADMINISTRATOR_BUNDLE = "file:administrator.jar";
-//	final static public String DB_FAKE_BUNDLE = "file:db-mock.jar"; // Private package, has no Export-Package config
+	final static public String DB_FAKE_BUNDLE = "file:db-fake.jar"; // Private package, has no Export-Package config
 	final static public String DB_BUNDLE = "file:db.jar";
 	final static public String LECTURER_BUNDLE = "file:lecturer.jar";
 	final static public String MYCAMPUS_STUB_BUNDLE = "file:mycampus-stub.jar";
@@ -32,7 +32,8 @@ public class BundleBuilder {
 //	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:mycampus-bundle.jar"; // Private package, has no Export-Package config
 //	final static public String SYSFUNC_REPOSITORY_IMPL_BUNDLE = "file:sysfunc-repository-impl.jar"; // Private package, has no Export-Package config
 	final static public String SYSFUNC_REPOSITORY_BUNDLE = "file:sysfunc-repository.jar"; 
-	//final static public String SYSFUNC_TIMETABLE_BUNDLE = "file:sysfunc-timetable.jar"; // Private package, has no Export-Package config
+	final static public String SYSFUNC_TIMETABLE_BUNDLE = "file:sysfunc-timetable.jar";
+	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:sysfunc-mycampus.jar";
 	final static public String USER_BUNDLE = "file:users.jar";
 	
 	private Bundle repositoryImpl;
@@ -66,10 +67,11 @@ public class BundleBuilder {
 		String extraPackages =
 			  "uk.ac.gla.dcs.psd.team.e.components.administrator,"
 			+ "uk.ac.gla.dcs.psd.team.e.components.db,"
+			+ "uk.ac.gla.dcs.psd.team.e.components.db.fake,"
 			+ "uk.ac.gla.dcs.psd.team.e.components.lecturer,"
 			+ "uk.ac.gla.dcs.psd.team.e.components.mycampus,"
 			+ "uk.ac.gla.dcs.psd.team.e.components.student,"
-			+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc,"
+			+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus,"
 			+ "uk.ac.gla.dcs.psd.team.e.components.users";
 		
 		framework = 
