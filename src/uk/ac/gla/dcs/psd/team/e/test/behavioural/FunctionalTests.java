@@ -61,19 +61,11 @@ public static BundleContext buildContext() throws Exception {
 		
 		// Clean up any resources left behind by failed tests
 		FunctionalTests.recursiveDelete(new File("felix-cache"));
-//		this.recursiveDelete(new File("data/sensordb"));
-		
-		
-//		expectedSensorID = "Temp02";
 		
 		String extraPackages =
 				"uk.ac.gla.dcs.psd.team.e.components.db,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.administrator,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.lecturer,"
 				+ "uk.ac.gla.dcs.psd.team.e.components.mycampus,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.student,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc.mycampus,"
-				+ "uk.ac.gla.dcs.psd.team.e.components.users";
+				+ "uk.ac.gla.dcs.psd.team.e.components.sysfunc.repository";
 		
 		framework = 
 			ConfiguredFrameworkFactory.createFelixFramework(
@@ -90,11 +82,6 @@ public static BundleContext buildContext() throws Exception {
 			"If cleanly initialised, the framework should "
 			+ "only contain  " + 11 + " bundles.";
 		
-//		assertEquals(
-//			message,
-//			(Integer) 11,
-//			actualNumberOfBundles);
-		
 		return bundleContext;
 		
 	}
@@ -106,8 +93,6 @@ public static BundleContext buildContext() throws Exception {
 					bundleFile);
 		
 		installedBundle.start();
-		
-//		return installedBundle;
 				
 	}
 
@@ -123,19 +108,15 @@ public static BundleContext buildContext() throws Exception {
 	@BeforeClass
 	public static void setup() throws Exception {
 		
-		//Loads all bundles
-//		BundleBuilder bundleBuilder = new BundleBuilder();
-		
 		bundleContext = buildContext();
 		
-		//installAndStart(BundleBuilder.DB_BUNDLE);
 		installAndStart(BundleBuilder.DB_FAKE_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_TIMETABLE_BUNDLE);
-		installAndStart(BundleBuilder.MYCAMPUS_BUNDLE);
+		installAndStart(BundleBuilder.SYSFUNC_REPOSITORY_IMPL_BUNDLE);
+		installAndStart(BundleBuilder.USER_BUNDLE);
 		installAndStart(BundleBuilder.MYCAMPUS_STUB_BUNDLE);
 		installAndStart(BundleBuilder.SYSFUNC_MYCAMPUS_BUNDLE);
-		installAndStart(BundleBuilder.USER_BUNDLE);
 		installAndStart(BundleBuilder.ADMINISTRATOR_BUNDLE);
 		installAndStart(BundleBuilder.LECTURER_BUNDLE);	
 		installAndStart(BundleBuilder.STUDENT_BUNDLE);
@@ -145,11 +126,6 @@ public static BundleContext buildContext() throws Exception {
 				.getServiceReference(IDatabase.class);
 		
 		IDatabase adminAccess2 = bundleContext.getService(dbReference);
-
-//	ServiceReference<TemperatureReport> 
-//		temperatureReportReference = 
-//			bundleContext.getServiceReference(
-//				TemperatureReport.class);
 	
 		
 		funcRepo.registerFunction(myCampusFunctions);

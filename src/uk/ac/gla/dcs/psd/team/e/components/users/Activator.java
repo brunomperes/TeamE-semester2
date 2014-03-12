@@ -18,11 +18,8 @@ public class Activator implements BundleActivator {
 		throws Exception {
 		
 		Activator.context = context;
-		
-		ServiceReference<IAuthenticator> s = context.getServiceReference(IAuthenticator.class);
-		IAuthenticator auth = context.getService(s);
 		IFunctionRepository funcRepo = context.getService(context.getServiceReference(IFunctionRepository.class));
-		sessionStore = new SessionStore(auth, funcRepo);
+		sessionStore = new SessionStore(context, funcRepo);
 	}	
 
 	@Override

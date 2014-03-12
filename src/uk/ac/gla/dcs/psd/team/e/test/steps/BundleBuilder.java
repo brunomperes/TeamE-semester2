@@ -23,14 +23,11 @@ public class BundleBuilder {
 	final static private Integer EXPECTED_NUMBER_OF_BUNDLES = 7;
 	
 	final static public String ADMINISTRATOR_BUNDLE = "file:administrator.jar";
-	final static public String DB_FAKE_BUNDLE = "file:db-fake.jar"; // Private package, has no Export-Package config
-	final static public String DB_BUNDLE = "file:db.jar";
+	final static public String DB_FAKE_BUNDLE = "file:db-fake.jar";
 	final static public String LECTURER_BUNDLE = "file:lecturer.jar";
 	final static public String MYCAMPUS_STUB_BUNDLE = "file:mycampus-stub.jar";
-	final static public String MYCAMPUS_BUNDLE = "file:mycampus.jar";
 	final static public String STUDENT_BUNDLE = "file:student.jar";
-//	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:mycampus-bundle.jar"; // Private package, has no Export-Package config
-//	final static public String SYSFUNC_REPOSITORY_IMPL_BUNDLE = "file:sysfunc-repository-impl.jar"; // Private package, has no Export-Package config
+	final static public String SYSFUNC_REPOSITORY_IMPL_BUNDLE = "file:sysfunc-repository-impl.jar";
 	final static public String SYSFUNC_REPOSITORY_BUNDLE = "file:sysfunc-repository.jar"; 
 	final static public String SYSFUNC_TIMETABLE_BUNDLE = "file:sysfunc-timetable.jar";
 	final static public String SYSFUNC_MYCAMPUS_BUNDLE = "file:sysfunc-mycampus.jar";
