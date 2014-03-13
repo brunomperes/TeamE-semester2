@@ -92,11 +92,11 @@ public class SessionFunctions {
 	}
 	
 	/**
-	 * A select function using the where conditions as the studentID 
+	 * Returns all the StudentHasTimetableSlot entries that's studentID matches the given studentID
 	 * @param studentID
-	 * @return
+	 * @return Collection<StudentHasTimetableSlot>
 	 */
-	public Collection<StudentHasTimetableSlot> selectStudentHasTimetableSlotByStudentId(String studentID){
+	private Collection<StudentHasTimetableSlot> selectStudentHasTimetableSlotByStudentId(String studentID){
 		Collection<IIdentifiable> all = db.getAll(StudentHasTimetableSlot.class);
 		Collection<StudentHasTimetableSlot> result = new ArrayList<StudentHasTimetableSlot>();
 		

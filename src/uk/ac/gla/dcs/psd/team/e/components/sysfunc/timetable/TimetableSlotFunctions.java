@@ -52,7 +52,6 @@ public class TimetableSlotFunctions {
 		return result;
 	}
 	
-
 	public List<TimetableSlot> findTimeTableSlotForLecturer(String lecturerID) {
 
 		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
@@ -73,8 +72,7 @@ public class TimetableSlotFunctions {
 		return result;
 	}
 
-	public List<TimetableSlot> findTimeTableSlotForLecturerAndSession(
-			String lecturerID, String sessionID) {
+	public List<TimetableSlot> findTimeTableSlotForLecturerAndSession(String lecturerID, String sessionID) {
 		
 		List<TimetableSlot> lecturerSlots = findTimeTableSlotForLecturer(lecturerID);
 		List<TimetableSlot> result = new ArrayList<TimetableSlot>();
