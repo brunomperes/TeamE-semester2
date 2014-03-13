@@ -87,7 +87,7 @@ public class FunctionalTests {
 	}
 
 	@Test
-	public void functionalRequirement1() {
+	public void functionalRequirement1_1() {
 		boolean success = false;
 
 		for (Course course : lecturerAccess.getMyCampusCourses()) {
@@ -96,15 +96,28 @@ public class FunctionalTests {
 		}
 		assertTrue(success);
 	}
+	
+	@Test
+	public void functionalRequirement1_2() {
+		boolean success = false;
+
+		for (Course course : lecturerAccess.getMyCampusCourses()) {
+			if (course.getName().equals("NS3"))
+				success = true;
+		}
+		assertTrue(success);
+	}
 
 	@Test
-	public void functionalRequirement2() {
+	public void functionalRequirement2_1() {
 		boolean success = false;
+		exampleSession = new Session("PSD3-L2", "Lecture", 1, 50, 10, true, null);
 		
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		//Verifies there is a result on database for iterating
 		List<Session> courseSessions = (List<Session>) courseFunctions.getCourseSessions("PSD3");
+		
+		//Verifies there is a result on database for iterating
 		assertTrue(courseSessions != null);
 		
 		for (Session sessionOfCourse : courseSessions) {
@@ -113,18 +126,75 @@ public class FunctionalTests {
 		}
 		assertTrue(success);
 	}
+	
+	@Test
+	public void functionalRequirement2_2() {
+		boolean success = false;
+		
+		exampleSession2 = new Session("NS3-L2", "Lecture", 1, 50, 10, true, null);
+		exampleSession3 = new Session("NS3-L3", "Lecture", 1, 50, 10, false, null);
+		
+		lecturerAccess.addSessionToCourse(exampleSession2, "NS3");
+		lecturerAccess.addSessionToCourse(exampleSession3, "NS3");
 
+		List<Session> courseSessions = (List<Session>) courseFunctions.getCourseSessions("NS3");
+		//Verifies there is a result on database for iterating
+		assertTrue(courseSessions != null);
+		
+		for (Session sessionOfCourse : courseSessions) {
+			if (sessionOfCourse.getId().equals(exampleSession2.getId()))
+				success = true;
+		}
+		for (Session sessionOfCourse : courseSessions) {
+			if (sessionOfCourse.getId().equals(exampleSession3.getId()))
+				success = true;
+		}
+		assertTrue(success);
+	}
+
+	@Test
+	public void functionalRequirement4_1() {
+		boolean success = false;
+		int frequency = 1; //recurs weekly
+		lecturerAccess.importMyCampusCourse("PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+
+		assertTrue(lecturerAccess.setSessionFrequency(exampleSession.getId(), frequency));
+		
+		success = sessionFunctions.getSession(exampleSession.getId()).getFrequency() == frequency;
+		
+		assertTrue(success);
+	}
+	
+	
 	@Test
 	/**
 	 * Checks if all the sessions in the DB have a
 	 */
-	public void functionalRequirement4() {
+	public void functionalRequirement4_2() {
 		boolean success = false;
-		int frequency = 2;
+		int frequency = 2; //recurs fortnightly
 		lecturerAccess.importMyCampusCourse("PSD3");
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 
-		assertTrue(lecturerAccess.setSessionFrequency("PSD3-L1", frequency));
+		assertTrue(lecturerAccess.setSessionFrequency(exampleSession.getId(), frequency));
+		
+		success = sessionFunctions.getSession(exampleSession.getId()).getFrequency() == frequency;
+		
+		assertTrue(success);
+	}
+	
+	@Test
+	/**
+	 * Checks if all the sessions in the DB have a
+	 */
+	public void functionalRequirement4_3() {
+		boolean success = false;
+		int frequency = 0; //a one off;
+		lecturerAccess.importMyCampusCourse("PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+
+		assertTrue(lecturerAccess.setSessionFrequency(exampleSession.getId(), frequency));
 		
 		success = sessionFunctions.getSession(exampleSession.getId()).getFrequency() == frequency;
 		
@@ -132,12 +202,12 @@ public class FunctionalTests {
 	}
 
 	@Test
-	public void functionalRequirement8() {
+	public void functionalRequirement8_1() {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		exampleSession=new Session("PSD3id", "PDS3 Lecture", 1, 60, 12, true, "PSD3");
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",exampleSession.getCourseID(),1), TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), null, "",exampleSession.getCourseID(),1), TimetableSlot.class);
 		
 		assertTrue(adminAccess.assignRoomToSlot("BO 503", "TS1"));
 		
@@ -145,6 +215,21 @@ public class FunctionalTests {
 		TimetableSlot t = (TimetableSlot) mockDatabase.get("TS1", TimetableSlot.class);
 		assertTrue(t != null);
 		assertTrue(t.getLocation().equals("BO 503"));
+	}
+	
+	public void functionalRequirement8_2() {
+		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
+		exampleSession=new Session("PSD3id", "PDS3 Lecture", 1, 60, 12, true, "PSD3");
+		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
+		
+		mockDatabase.add(new TimetableSlot("TS1", new Date(), "BO720", "",exampleSession.getCourseID(),1), TimetableSlot.class);
+		
+		assertTrue(adminAccess.assignRoomToSlot("D315", "TS1"));
+		
+		//Verifies there is a result on database for iterating
+		TimetableSlot t = (TimetableSlot) mockDatabase.get("TS1", TimetableSlot.class);
+		assertTrue(t != null);
+		assertTrue(t.getLocation().equals("D315"));
 	}
 	
 	@Test
