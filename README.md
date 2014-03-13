@@ -7,12 +7,13 @@ Currently our team members are: Adam Kurkiewicz, Arnas Gabrielius Šlepikas, Bru
 The repository of semester 1 can be found at https://github.com/picrin/TeamE
 
 ### Architecture
-* [UML CLass Diagram](https://github.com/brunomperes/TeamE-semester2/wiki/ClassDiagram)
+* [UML cLass diagram](https://github.com/brunomperes/TeamE-semester2/wiki/ClassDiagram)
 * [Component diagram](https://github.com/brunomperes/TeamE-semester2/wiki/ComponentDiagram)
-* [Revised Component diagram](https://github.com/brunomperes/TeamE-semester2/wiki/RevisedComponentDiagram)
+* [Revised class diagram](https://github.com/brunomperes/TeamE-semester2/wiki/RevisedClassDiagram)
+* [Revised component diagram](https://github.com/brunomperes/TeamE-semester2/wiki/RevisedComponentDiagram)
 
-### Requirements
-The requirements are documented as [Github issues](https://github.com/brunomperes/TeamE-semester2/issues).
+### Requirements and Bugs
+The requirements and reported bugs are documented as [Github issues](https://github.com/brunomperes/TeamE-semester2/issues).
 
 ### Jenkins job
 http://hoved.dcs.gla.ac.uk:8080/job/TeamEMainBuild/
