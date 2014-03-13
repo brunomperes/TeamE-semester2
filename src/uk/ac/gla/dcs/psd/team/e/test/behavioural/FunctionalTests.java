@@ -230,7 +230,7 @@ public class FunctionalTests {
 	}
 
 	@Test
-	public void functionalRequirement12() {
+	public void functionalRequirement12_1() {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		mockDatabase.add(new StudentHasCourse("1212121212", "PSD3", studentAccess.getUsername()), StudentHasCourse.class);
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
@@ -241,6 +241,24 @@ public class FunctionalTests {
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
 		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		studentAccess.bookTimetableSlot("SLOT1");
+		
+		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		assertTrue(compulsoryUnbookedSessionsAFTER.size() == compulsoryUnbookedSessionsBEFORE.size());
+	}
+	@Test
+	public void functionalRequirement12_2() {
+		mockDatabase.add(new Course("PL3", "Tim"), Course.class);
+		mockDatabase.add(new StudentHasCourse("1212121212", "PL3", studentAccess.getUsername()), StudentHasCourse.class);
+		lecturerAccess.addSessionToCourse(exampleSession, "PL3");
+		lecturerAccess.addSessionToCourse(exampleSession2, "PL3");
+		lecturerAccess.addSessionToCourse(exampleSession3, "PL3");
+		
+		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PL3", studentAccess.getUsername()) , StudentHasCourse.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Boyd Orr 709", "Smith","PL3",1) , TimetableSlot.class);
 		studentAccess.bookTimetableSlot("SLOT1");
 		
 		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
