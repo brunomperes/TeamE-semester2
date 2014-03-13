@@ -2,11 +2,13 @@ package uk.ac.gla.dcs.psd.team.e.test.behavioural;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -81,6 +83,7 @@ public class FunctionalTests {
 		exampleSession = new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3");
 		exampleSession2 = new Session("PSD3-L2", "Lecture", 1, 50, 10, true, "PSD3");
 		exampleSession3 = new Session("PSD3-L3", "Lecture", 1, 50, 10, false, "PSD3");
+		
 	}
 
 	@Test
@@ -228,7 +231,44 @@ public class FunctionalTests {
 		assertTrue(t != null);
 		assertTrue(t.getLocation().equals("D315"));
 	}
+	
+	@Test
+	public void functionalRequirement9_1(){
+		//For NS3 adding
+		//Sessions don't clash
+		mockDatabase.add(new Course("CS1","NS3","TW"), Course.class);
+		mockDatabase.add(new Course("CS2","PSD3","TW"), Course.class);
+		mockDatabase.add(new Session("1", null, 1, 60, 12, true, "CS2"), Session.class);
+		mockDatabase.add(new Session("2", null, 1, 60, 12, true, "CS1"), Session.class);
+		mockDatabase.add(new TimetableSlot("1", new Date(2013, 9, 13, 12, 0), null, null, "1", 1), TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("2", new Date(2013, 9, 14, 12, 0), null, null, "2", 2), TimetableSlot.class);
+		
+		assertTrue(adminAccess.checkCourseClashes("CS1").size()==0);
+		
+		//Make a clash
+		mockDatabase.add(new Session("3", null, 1, 60, 12, true, "CS1"), Session.class);
+		mockDatabase.add(new TimetableSlot("3", new Date(2013, 9, 13, 12, 0), null, null, "3", 1), TimetableSlot.class);
 
+		assertTrue(adminAccess.checkCourseClashes("CS1").size()!=0);
+	}
+
+	public void functionalRequirment9_2(){
+		//For PSD3 adding
+		mockDatabase.add(new Session("4", null, 1, 120, 10, true, "CS1"), Session.class);
+		mockDatabase.add(new TimetableSlot("4", new Date(2013, 9, 22, 12, 0), null, null, "4", 3), TimetableSlot.class);
+		//Sessions don't clash
+		mockDatabase.add(new Session("5", null, 1, 60, 10, true, "CS2"), Session.class);
+		mockDatabase.add(new TimetableSlot("5", new Date(2013, 9, 22, 15, 0), null, null, "4", 3), TimetableSlot.class);
+		
+		assertTrue(adminAccess.checkCourseClashes("CS2").size()==0);
+		
+		//Make a clash
+		mockDatabase.add(new Session("6", null, 1, 60, 12, true, "CS2"), Session.class);
+		mockDatabase.add(new TimetableSlot("6", new Date(2013, 9, 22, 12, 0), null, null, "4", 1), TimetableSlot.class);
+		
+		assertTrue(adminAccess.checkCourseClashes("CS2").size()!=0);
+	}
+	
 	@Test
 	public void functionalRequirement11() {
 		boolean success = false;
@@ -245,7 +285,7 @@ public class FunctionalTests {
 	}
 
 	@Test
-	public void functionalRequirement12() {
+	public void functionalRequirement12_1() {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		mockDatabase.add(new StudentHasCourse("1212121212", "PSD3", studentAccess.getUsername()), StudentHasCourse.class);
 		lecturerAccess.addSessionToCourse(exampleSession, "PSD3");
@@ -256,6 +296,24 @@ public class FunctionalTests {
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
 		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		studentAccess.bookTimetableSlot("SLOT1");
+		
+		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		assertTrue(compulsoryUnbookedSessionsAFTER.size() == compulsoryUnbookedSessionsBEFORE.size());
+	}
+	@Test
+	public void functionalRequirement12_2() {
+		mockDatabase.add(new Course("PL3", "Tim"), Course.class);
+		mockDatabase.add(new StudentHasCourse("1212121212", "PL3", studentAccess.getUsername()), StudentHasCourse.class);
+		lecturerAccess.addSessionToCourse(exampleSession, "PL3");
+		lecturerAccess.addSessionToCourse(exampleSession2, "PL3");
+		lecturerAccess.addSessionToCourse(exampleSession3, "PL3");
+		
+		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
+		
+		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PL3", studentAccess.getUsername()) , StudentHasCourse.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Boyd Orr 709", "Smith","PL3",1) , TimetableSlot.class);
 		studentAccess.bookTimetableSlot("SLOT1");
 		
 		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
