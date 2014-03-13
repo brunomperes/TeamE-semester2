@@ -157,7 +157,7 @@
 		</junit>
 	</target>
 
-	<target name="test" description="Run all tests" depends="testclasses, testnonfunctional, testfunctional" />
+	<target name="test" description="Run all tests" depends="testnonfunctional, testfunctional" />
 
 	<target name="osgi.run" depends="osgi.init">
 
