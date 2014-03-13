@@ -3,19 +3,13 @@ package uk.ac.gla.dcs.psd.team.e.test.steps;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Date;
 
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.When;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.launch.Framework;
 
-import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.test.ConfiguredFrameworkFactory;
-import uk.ac.gla.dcs.psd.team.e.test.behavioural.FunctionalTests;
 
 public class BundleBuilder {
 	final static public String ADMINISTRATOR_BUNDLE = "file:administrator.jar";
