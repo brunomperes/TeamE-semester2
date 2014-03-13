@@ -270,7 +270,23 @@ public class FunctionalTests {
 	}
 	
 	@Test
-	public void functionalRequirement11() {
+	public void functionalRequirement11_1() {
+		boolean success = false;
+		
+		mockDatabase.add(new Course("NS3","CP"), Course.class);
+		mockDatabase.add(new Session("NS301","NS3 Lecture",1,60,12,true,"NS3"), Course.class);
+		mockDatabase.add(new TimetableSlot("TS2", new Date(), "BO720", "","NS3", 1), TimetableSlot.class);
+		
+		success = studentAccess.bookTimetableSlot("TS2");
+		List<TimetableSlot> bookedTimetableSlots = timetableSlotFunctions.findTimeTableSlotForStudent(studentAccess.getUsername());
+		
+		assertTrue(success);
+		assertTrue(bookedTimetableSlots.size() == 1);
+	}
+
+	@Test
+	public void functionalRequirement11_2() {
+		mockDatabase.clear();
 		boolean success = false;
 		
 		mockDatabase.add(new Course("PSD3","TS"), Course.class);
@@ -283,7 +299,7 @@ public class FunctionalTests {
 		assertTrue(success);
 		assertTrue(bookedTimetableSlots.size() == 1);
 	}
-
+	
 	@Test
 	public void functionalRequirement12_1() {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
