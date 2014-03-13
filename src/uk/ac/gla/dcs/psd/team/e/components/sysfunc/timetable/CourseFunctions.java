@@ -62,7 +62,7 @@ public class CourseFunctions {
 	 */
 	public ArrayList<int[]> checkClashes(String courseId) {
 		Course course=(Course)db.get(courseId, Course.class);
-		HashMap<String, String> timetableStore = new HashMap<>();
+		HashMap<String, String> timetableStore = new HashMap<String, String>();
 		List<IIdentifiable> sessions = db.getAll(Session.class);
 		ArrayList<String> currentSessions = new ArrayList<String>();
 		ArrayList<String> otherSessions = new ArrayList<String>();
