@@ -60,8 +60,9 @@ public class CourseFunctions {
 	/**
 	 * @return 2 integer array, first integer indicating hour, the second weekday
 	 */
-	public ArrayList<int[]> checkClashes(Course course) {
-		HashMap<Time, String> timetableStore = new HashMap<Time, String>();
+	public ArrayList<int[]> checkClashes(String courseId) {
+		Course course=(Course)db.get(courseId, Course.class);
+		HashMap<String, String> timetableStore = new HashMap<>();
 		List<IIdentifiable> sessions = db.getAll(Session.class);
 		ArrayList<String> currentSessions = new ArrayList<String>();
 		ArrayList<String> otherSessions = new ArrayList<String>();
@@ -86,12 +87,12 @@ public class CourseFunctions {
 					int hour = j.getBeginDate().getHours();
 					int wd = j.getWeekday();
 					for (int count = 0; count < duration; count++) {
-						timetableStore.put(new Time(hour + count, hour + count
-								+ 1, wd), id);
+						timetableStore.put((Integer.toString(hour) + Integer.toString(wd)), id);
 					}
 				}
 			}
 		}
+		
 		ArrayList<int[]> retList = new ArrayList<int[]>();
 		for (String id : otherSessions) {
 			Session thisSession = (Session) db.get(id, Session.class);
@@ -102,8 +103,7 @@ public class CourseFunctions {
 					int hour = j.getBeginDate().getHours();
 					int wd = j.getWeekday();
 					for (int count = 0; count < duration; count++) {
-						if (timetableStore.containsKey(new Time(hour + count, hour
-								+ count + 1, wd))){
+						if (timetableStore.containsKey((Integer.toString((hour+count)) + Integer.toString(wd)))){
 							int k[] = {hour, wd};
 							retList.add(k);
 						}

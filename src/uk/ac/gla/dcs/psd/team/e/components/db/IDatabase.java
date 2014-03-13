@@ -16,5 +16,7 @@ public interface IDatabase {
 	public boolean add(IIdentifiable o, Class<? extends IIdentifiable> cl);
 	
 	public <T extends Collection<? extends IIdentifiable>> boolean addAll(T c, Class<? extends IIdentifiable> cl);
+	
+	public void clear();
 
 }
