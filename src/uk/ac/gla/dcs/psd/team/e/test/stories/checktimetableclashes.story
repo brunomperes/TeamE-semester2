@@ -7,10 +7,10 @@ Scenario: administrator checks for timetable clashes of the compulsory sessions 
 Given a timetable
 And a NS3 course
 When the administrator checks for timetable clashes for that course
-Then the time slots for NS3 compulsory sessions should be checked to ensure they don't clash with another compulsory session
+Then if there is a clash between the NS3 compulsory session and another compulsory session then the administrator should be told when there is a clash
 
 Scenario: administrator checks for timetable clashes for the compulsory sessions for the PSD3 course
 Given a timetable
 And a PSD3 course
 When the administrator checks for timetable clashes for that course
-Then the time slots for PSD3 compulsory sessions should be checked to ensure they don't clash with another compulsory session
+Then if there is a clash between the PSD3 compulsory session and another compulsory session then the administrator should be told when there is a clash
