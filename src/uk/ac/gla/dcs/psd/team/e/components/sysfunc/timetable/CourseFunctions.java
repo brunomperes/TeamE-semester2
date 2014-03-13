@@ -113,28 +113,3 @@ public class CourseFunctions {
 		}
 		return retList;
 	}
-
-	private class Time {
-		int startHours;
-		int endHours;
-		int weekday;
-
-		public Time(int sh, int eh, int wd) {
-			startHours = sh;
-			endHours = eh;
-			weekday = wd;
-		}
-
-		public int getstartHours() {
-			return startHours;
-		}
-
-		public int getendHours() {
-			return endHours;
-		}
-		
-		public boolean equals(Time t) {
-			return startHours == t.startHours && endHours == t.endHours && weekday == t.weekday;
-		}
-	}
-}
