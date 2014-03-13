@@ -322,7 +322,7 @@ public class FunctionalTests {
 	}
 	
 	@Test
-	public void functionalRequirement14() {
+	public void functionalRequirement14_1() {
 			
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3"), "PSD3");
@@ -335,6 +335,21 @@ public class FunctionalTests {
 		
 		assertTrue(queryResult!=null);
 		assertTrue(queryResult.size() == 2);
+	}
+	
+	
+	@Test
+	public void functionalRequirement14_2() {
+			
+		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
+		lecturerAccess.addSessionToCourse(new Session("PSD3-LAB", "Lab", 1, 50, 10, true, "PSD3"), "PSD3");
+		
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Boyd Orr Level 7", "Jeremy","PSD3-LAB",1) , TimetableSlot.class);
+		
+		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession("PSD3-LAB");
+		
+		assertTrue(queryResult!=null);
+		assertTrue(queryResult.size() == 0);
 	}
 	
 	@AfterClass
