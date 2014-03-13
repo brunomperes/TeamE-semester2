@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.lang.AssertionError;
 
 import uk.ac.gla.dcs.psd.team.e.components.db.IDatabase;
 import uk.ac.gla.dcs.psd.team.e.components.db.IIdentifiable;
