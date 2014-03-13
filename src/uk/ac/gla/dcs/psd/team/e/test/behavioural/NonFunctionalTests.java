@@ -72,9 +72,11 @@ public class NonFunctionalTests {
 	
 	@Test
 	public void nonFunctionalPerformance0(){
+		mockDatabase.add(new Course("Inital", "JS"), Course.class);
 		int before = mockDatabase.getAll(Course.class).size();
-		for(int i=1; i<=100; i++)
+		for(int i=1; i<=100; i++){
 			mockDatabase.add(new Course(Integer.toString(i), Integer.toString(i)), Course.class);
+		}
 		List<IIdentifiable> courseList = mockDatabase.getAll(Course.class);
 		assertEquals("Test supports 100 courses", 100, courseList.size() - before);
 	}

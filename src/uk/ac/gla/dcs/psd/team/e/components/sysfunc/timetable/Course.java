@@ -13,7 +13,8 @@ public class Course implements IIdentifiable {
 		this.name = name;
 		this.lecturerID = lecturerID;
 	}
-
+	
+	/** for use with tests only!*/
 	public Course(String name, String lecturerID) {
 		this.name = name;
 		this.lecturerID = lecturerID;

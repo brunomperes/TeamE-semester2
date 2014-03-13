@@ -21,26 +21,21 @@ public class Database implements IDatabase {
 
 	HashMap<String, List<IIdentifiable>> tableMap = new HashMap<String, List<IIdentifiable>>();
 
-	// TODO suppress this warning if everything's fine.
 	@Override
 	public List<IIdentifiable> getAll(Class<? extends IIdentifiable> cl) {
 		
 		List<IIdentifiable>table = tableMap.get(cl.getName());
-		/*for (IIdentifiable i: table){
-			if (i == null){
-				table.remove(i);
-			}
-		}*/
 		return table;
 	}
 
 	@Override
 	public Object get(String ID, Class<? extends IIdentifiable> cl) {
-		if (ID == null) {
+		List<IIdentifiable> allElements = getAll(cl);
+		if(allElements.isEmpty()){
 			return null;
 		}
-		List<IIdentifiable> allElements = getAll(cl);
-		for (IIdentifiable element : allElements) {
+		for (int count=0;count<allElements.size();count++) {
+			IIdentifiable element=allElements.get(count);
 			if (element != null) {
 				String j = element.getId();
 				if (j != null) {
