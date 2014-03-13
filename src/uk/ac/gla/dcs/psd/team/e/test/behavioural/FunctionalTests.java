@@ -311,7 +311,7 @@ public class FunctionalTests {
 		List<Session> compulsoryUnbookedSessionsBEFORE = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
 		
 		mockDatabase.add(new StudentHasCourse("PSD3-Adam", "PSD3", studentAccess.getUsername()) , StudentHasCourse.class);
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Gallery", "Jeremy","PSD3",1) , TimetableSlot.class);
 		studentAccess.bookTimetableSlot("SLOT1");
 		
 		List<Session> compulsoryUnbookedSessionsAFTER = (List<Session>) studentAccess.getCompulsoryUnbookedSessions();
@@ -343,9 +343,9 @@ public class FunctionalTests {
 		mockDatabase.add(new Course("PSD3", "Tim"), Course.class);
 		lecturerAccess.addSessionToCourse(new Session("PSD3-L1", "Lecture", 1, 50, 10, true, "PSD3"), "PSD3");
 		
-		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Galley", "Jeremy","PSD3-L1",1) , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
-		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Galley", "Tim","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT1", new Date(), "Hunterian Art Gallery", "Jeremy","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Gallery", "Tim","PSD3-L1",1) , TimetableSlot.class);
+		mockDatabase.add(new TimetableSlot("SLOT2", new Date(), "Hunterian Art Gallery", "Tim","PSD3-L1",1) , TimetableSlot.class);
 		
 		List<TimetableSlot> queryResult = lecturerAccess.getTimetableSlotsForSession("PSD3-L1");
 		
