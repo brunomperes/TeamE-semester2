@@ -1,0 +1,23 @@
+package uk.ac.gla.dcs.psd.team.e.components.student;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+
+import uk.ac.gla.dcs.psd.team.e.components.users.IAccessFactory;
+
+public class Activator implements BundleActivator{
+	
+	private ServiceRegistration<IAccessFactory> registration;
+	
+	@Override
+	public void start(BundleContext context) throws Exception {
+		 registration=context.registerService(IAccessFactory.class , new StudentAccessFactory(), null);
+	}
+
+	@Override
+	public void stop(BundleContext arg0) throws Exception {
+		registration.unregister();
+	}
+
+}

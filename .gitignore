@@ -11,4 +11,4 @@
 /lib
 .classpath
 .project
-TEST-team.e.*
+TEST-*.xml
